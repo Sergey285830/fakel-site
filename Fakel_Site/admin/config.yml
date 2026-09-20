@@ -2,7 +2,7 @@ backend:
   name: github
   repo: Sergey285830/fakel-site
   branch: main
-  site_id: footballclubfakel161.vercel.app
+  base_url: https://decap-cms-oauth.netlify.app
 
 media_folder: "Fakel_Site/img"
 public_folder: "img"
