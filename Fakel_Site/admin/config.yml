@@ -1,5 +1,6 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: Sergey285830/fakel-site # Твой логин и репозиторий на GitHub
   branch: main
 
 media_folder: "Fakel_Site/img"
