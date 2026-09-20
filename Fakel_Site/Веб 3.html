@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>ФК «Факел» — Карточки игроков</title>
+    <style>
+        :root {
+            --bg-base: #030a14;
+            --accent-blue: #1e3a8a;
+            --accent-light: #38bdf8;
+            --accent-gold: #fbbf24;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+        body { 
+            background-color: var(--bg-base); 
+            background-image: 
+                radial-gradient(circle at 10% 10%, rgba(56, 189, 248, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(30, 58, 138, 0.3) 0%, transparent 40%),
+                radial-gradient(circle at 50% 100%, rgba(251, 191, 36, 0.1) 0%, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-main); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; line-height: 1.6; position: relative;
+        }
+        
+        body::after {
+            content: ''; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 100vw; height: 100vw; max-width: 900px; max-height: 900px;
+            background: url('Фотки/logo.png') no-repeat center center; background-size: contain;
+            opacity: 0.05; z-index: -1; pointer-events: none;
+            -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 70%);
+            mask-image: radial-gradient(circle, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 70%);
+        }
+
+        header { text-align: center; padding: 40px 20px 20px; }
+        .logo { 
+            width: 250px; 
+            -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 90%);
+            mask-image: radial-gradient(circle, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 90%);
+            margin-bottom: 10px; 
+        }
+        .title { color: var(--accent-gold); font-size: 38px; margin: 0 0 10px; text-shadow: 0 2px 10px rgba(251,191,36,0.2); }
+        
+        .nav { display: flex; justify-content: center; gap: 30px; padding: 20px; background-color: rgba(3, 10, 20, 0.7); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(15px); border-bottom: 1px solid rgba(56, 189, 248, 0.2); }
+        .nav a { color: var(--text-main); text-decoration: none; font-size: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s, text-shadow 0.3s; }
+        .nav a:hover, .nav a.active { color: var(--accent-gold); text-shadow: 0 0 10px rgba(251, 191, 36, 0.5); }
+        
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        
+        .category-title { color: var(--accent-light); font-size: 30px; border-bottom: 2px solid rgba(30, 58, 138, 0.5); padding-bottom: 10px; margin: 40px 0 30px 0; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 10px rgba(56, 189, 248, 0.2); }
+
+        .card-detail { background: rgba(14, 30, 53, 0.4); backdrop-filter: blur(10px); border-radius: 20px; padding: 35px; margin-bottom: 40px; display: flex; gap: 40px; align-items: flex-start; box-shadow: 0 15px 35px rgba(0,0,0,0.5); border: 1px solid rgba(255, 255, 255, 0.05); border-top: 1px solid rgba(255,255,255,0.1); }
+        .card-detail img { width: 300px; height: 380px; object-fit: cover; border-radius: 12px; border: 4px solid rgba(56, 189, 248, 0.3); flex-shrink: 0; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        .card-content { flex: 1; }
+        
+        .card-name { color: var(--accent-light); font-size: 34px; margin: 0 0 25px 0; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px; display: flex; align-items: center; flex-wrap: wrap; gap: 15px; text-shadow: 0 2px 10px rgba(56,189,248,0.2); }
+        .card-name span.number { color: var(--text-main); font-weight: 300; }
+        
+        .captain-badge { background: linear-gradient(135deg, var(--accent-gold), #d97706); color: var(--bg-base); font-size: 16px; font-weight: bold; padding: 5px 14px; border-radius: 8px; text-transform: uppercase; box-shadow: 0 0 15px rgba(251, 191, 36, 0.4); text-shadow: none; }
+
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .info-item { font-size: 18px; color: #cbd5e1; }
+        .info-item strong { color: var(--text-main); display: block; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-gold); margin-bottom: 5px; opacity: 0.9; }
+        .info-full { grid-column: 1 / -1; margin-top: 10px; padding-top: 20px; border-top: 1px dashed rgba(255,255,255,0.1); }
+        .info-link { color: var(--accent-light); text-decoration: none; font-weight: bold; transition: color 0.3s; }
+        .info-link:hover { color: var(--accent-gold); text-shadow: 0 0 8px rgba(251,191,36,0.4); }
+        
+        footer { text-align: center; padding: 40px; color: var(--text-muted); background: rgba(3, 10, 20, 0.8); border-top: 1px solid rgba(30, 58, 138, 0.5); backdrop-filter: blur(10px); margin-top: 20px; }
+        
+        @media (max-width: 768px) {
+            .card-detail { flex-direction: column; align-items: center; }
+            .card-detail img { width: 100%; max-width: 350px; }
+            .info-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="top">
+        <img src="Фотки/logo.png" alt="Логотип ФК Факел" class="logo">
+        <h1 class="title">⭐ Детальная информация</h1>
+    </header>
+
+    <nav class="nav">
+        <a href="Веб 1.html">Главная</a>
+        <a href="Веб 2.html">← В состав</a>
+        <a href="Веб 3.html" class="active">Игроки</a>
+    </nav>
+
+    <div class="container">
+
+        <h2 class="category-title">🧤 Вратари</h2>
+        <article class="card-detail" id="lazarev">
+            <img src="Фотки/andrey.jpg" alt="Лазарев Андрей">
+            <div class="card-content">
+                <h2 class="card-name">Лазарев Андрей <span class="number">— №1</span></h2>
+                <div class="info-grid">
+                    <div class="info-item"><strong>Амплуа</strong> Вратарь</div>
+                    <div class="info-item"><strong>Дата рождения</strong> 05.04.2005</div>
+                    <div class="info-item"><strong>Рост</strong> 180 см</div>
+                    <div class="info-item"><strong>Вес</strong> 85 кг</div>
+                    <div class="info-item"><strong>Рабочая нога</strong> правая</div>
+                    <div class="info-item"><strong>Дата дебюта</strong> Март 2025 года</div>
+                    <div class="info-item info-full"><strong>Статистика</strong> 1 сухой матч.</div>
+                </div>
+            </div>
+        </article>
+
+        <h2 class="category-title">🛡️ Защитники</h2>
+        <article class="card-detail" id="goncharenko_a">
+            <img src="Фотки/artem.jpg" alt="Гончаренко Артём">
+            <div class="card-content">
+                <h2 class="card-name">Гончаренко Артём <span class="number">— №2</span></h2>
+                <div class="info-grid">
+                    <div class="info-item"><strong>Амплуа</strong> Защитник</div>
+                    <div class="info-item"><strong>Дата рождения</strong> 19.02.2005</div>
+                    <div class="info-item"><strong>Рост</strong> 182 см</div>
+                    <div class="info-item"><strong>Вес</strong> 73 кг</div>
+                    <div class="info-item"><strong>Рабочая нога</strong> правая</div>
+                    <div class="info-item"><strong>Дата дебюта</strong> С основания клуба</div>
+                    <div class="info-item info-full"><strong>Статистика</strong> 12 голов, 3 голевые передачи.</div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card-detail" id="pilipenko">
+            <img src="Фотки/vasya.jpg" alt="Пилипенко Василий">
+            <div class="card-content">
+                <h2 class="card-name">Пилипенко Василий Викторович <span class="number">— №3</span></h2>
+                <div class="info-grid">
+                    <div class="info-item"><strong>Амплуа</strong> Защитник</div>
+                    <div class="info-item"><strong>Дата рождения</strong> 22.08.2006</div>
+                    <div class="info-item"><strong>Рост</strong> 175 см</div>
+                    <div class="info-item"><strong>Вес</strong> 73 кг</div>
+                    <div class="info-item"><strong>Рабочая нога</strong> левая</div>
+                    <div class="info-item"><strong>Дата дебюта</strong> С основания клуба</div>
+                    <div class="info-item info-full"><strong>Статистика</strong> 2 гола, 3 голевые передачи.</div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card-detail" id="mikryukov">
+            <img src="Фотки/mikryukov.jpg" alt="Микрюков Никита">
+            <div class="card-content">
+                <h2 class="card-name">Микрюков Никита Романович <span class="number">— №12</span></h2>
+                <div class="info-grid">
+                    <div class="info-item"><strong>Амплуа</strong> Защитник</div>
+                    <div class="info-item"><strong>Дата рождения</strong> 12.09.2005</div>
+                    <div class="info-item"><strong>Рост</strong> 184 см</div>
+                    <div class="info-item"><strong>Вес</strong> 80-81 кг</div>
+                    <div class="info-item"><strong>Рабочая нога</strong> правая</div>
+                    <div class="info-item"><strong>Дата дебюта</strong> С основания клуба</div>
+                    <div class="info-item info-full"><strong>Соцсети</strong> <a href="https://vk.ru/akul_337" class="info-link">ВК akul_337</a></div>
+                    <div class="info-item info-full"><strong>Статистика</strong> 8 голов, 11 голевых передач.</div>
+                </div>
+            </div>
+        </article>
+
+        <h2 class="category-title">⚡ Полузащитники</h2>
+        <article class="card-detail" id="goncharenko_s" style="border-top-color: rgba(251,191,36,0.5);">
+            <img src="Фотки/sergey.jpg" alt="Гончаренко Сергей" style="border-color: rgba(251,191,36,0.6);">
+            <div class="card-content">
+                <h2 class="card-name" style="color: var(--accent-gold);">Гончаренко Сергей <span class="captain-badge">© Капитан</span> <span class="number">— №9</span></h2>
+                <div class="info-grid">
+                    <div class="info-item"><strong>Амплуа</strong> Полузащитник</div>
+                    <div class="info-item"><strong>Дата рождения</strong> 08.10.2006</div>
+                    <div class="info-item"><strong>Рост</strong> 191 см</div>
+                    <div class="info-item"><strong>Вес</strong> 87 кг</div>
+                    <div class="info-item"><strong>Рабочая нога</strong> правая</div>
+                    <div class="info-item"><strong>Дата дебюта</strong> С основания клуба</div>
+                    <div class="info-item info-full"><strong>Статистика</strong> 71 гол, 22 голевые передачи.</div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card-detail" id="blokhin">
+            <img src="Фотки/blokhin.jpg" alt="Блохин Андрей">
+            <div class="card-content">
+                <h2 class="card-name">Блохин Андрей Андреевич <span class="number">— №4</span></h2>
+                <div class="info-grid">
+                    <div class="info-item"><strong>Амплуа</strong> Полузащитник</div>
+                    <div class="info-item"><strong>Дата рождения</strong> 13.11.2007</div>
+                    <div class="info-item"><strong>Рост</strong> 178 см</div>
+                    <div class="info-item"><strong>Вес</strong> 72 кг</div>
+                    <div class="info-item"><strong>Рабочая нога</strong> правая</div>
+                    <div class="info-item"><strong>Дата дебюта</strong> 30 мая 2026 года</div>
+                    <div class="info-item info-full"><strong>Соцсети</strong> <a href="https://t.me/dontlookinmydirectionhypoc" class="info-link">Telegram @dontlookinmydirectionhypoc</a></div>
+                    <div class="info-item info-full"><strong>Статистика</strong> 2 гола, 1 голевая передача.</div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card-detail" id="ashikhmin">
+            <img src="Фотки/ashikhmin.jpg" alt="Ашихмин Антон">
+            <div class="card-content">
+                <h2 class="card-name">Ашихмин Антон Евгеньевич <span class="number">— №14</span></h2>
+                <div class="info-grid">
+                    <div class="info-item"><strong>Амплуа</strong> Полузащитник</div>
+                    <div class="info-item"><strong>Дата рождения</strong> 01.06.2006</div>
+                    <div class="info-item"><strong>Рост</strong> 183 см</div>
+                    <div class="info-item"><strong>Вес</strong> 75 кг</div>
+                    <div class="info-item"><strong>Рабочая нога</strong> правая</div>
+                    <div class="info-item"><strong>Дата дебюта</strong> С основания клуба</div>
+                    <div class="info-item info-full"><strong>Статистика</strong> 12 голов, 4 голевые передачи.</div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card-detail" id="bugaenko">
+            <img src="Фотки/bugaenko.jpg" alt="Бугаенко Илья">
+            <div class="card-content">
+                <h2 class="card-name">Бугаенко Илья Юрьевич <span class="number">— №69</span></h2>
+                <div class="info-grid">
+                    <div class="info-item"><strong>Амплуа</strong> Полузащитник</div>
+                    <div class="info-item"><strong>Дата рождения</strong> 03.06.2008</div>
+                    <div class="info-item"><strong>Рост</strong> 186 см</div>
+                    <div class="info-item"><strong>Вес</strong> 70 кг</div>
+                    <div class="info-item"><strong>Рабочая нога</strong> правая</div>
+                    <div class="info-item"><strong>Дата дебюта</strong> Октябрь 2024 года</div>
+                    <div class="info-item info-full"><strong>Статистика</strong> 3 гола, 0 голевых передач.</div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card-detail" id="stepkin">
+            <img src="Фотки/stepkin.jpg" alt="Степкин Даниил">
+            <div class="card-content">
+                <h2 class="card-name">Степкин Даниил Владимирович <span class="number">— №70</span></h2>
+                <div class="info-grid">
+                    <div class="info-item"><strong>Амплуа</strong> Полузащитник</div>
+                    <div class="info-item"><strong>Дата рождения</strong> 12.04.2006</div>
+                    <div class="info-item"><strong>Рост</strong> 175 см</div>
+                    <div class="info-item"><strong>Вес</strong> 68 кг</div>
+                    <div class="info-item"><strong>Рабочая нога</strong> правая</div>
+                    <div class="info-item"><strong>Дата дебюта</strong> Сентябрь 2026 года</div>
+                    <div class="info-item info-full"><strong>Соцсети</strong> <a href="https://t.me/notbadays%C2%A1" class="info-link">Telegram @notbadays¡</a></div>
+                    <div class="info-item info-full"><strong>Статистика</strong> 3 гола, 3 голевые передачи.</div>
+                </div>
+            </div>
+        </article>
+
+        <h2 class="category-title">⚽ Нападающие</h2>
+        <article class="card-detail" id="timonin">
+            <img src="Фотки/valera.jpg" alt="Тимонин Валерий">
+            <div class="card-content">
+                <h2 class="card-name">Тимонин Валерий Игоревич <span class="number">— №7</span></h2>
+                <div class="info-grid">
+                    <div class="info-item"><strong>Амплуа</strong> Нападающий</div>
+                    <div class="info-item"><strong>Дата рождения</strong> 26.03.2007</div>
+                    <div class="info-item"><strong>Рост</strong> 182-184 см</div>
+                    <div class="info-item"><strong>Вес</strong> 72 кг</div>
+                    <div class="info-item"><strong>Рабочая нога</strong> обе</div>
+                    <div class="info-item"><strong>Дата дебюта</strong> Сентябрь 2025 года</div>
+                    <div class="info-item info-full"><strong>Статистика</strong> 15 голов, 10 голевых передач.</div>
+                </div>
+            </div>
+        </article>
+
+    </div>
+
+    <footer>
+        <p>© 2026, ФК «Факел» | Ростов-на-Дону</p>
+    </footer>
+
+</body>
+</html>
