@@ -2,7 +2,7 @@ backend:
   name: github
   repo: Sergey285830/fakel-site
   branch: main
-  base_url: https://decap-cms-oauth.netlify.app
+  auth_type: token
 
 media_folder: "Fakel_Site/img"
 public_folder: "img"
