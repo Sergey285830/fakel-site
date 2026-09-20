@@ -2,7 +2,8 @@ backend:
   name: github
   repo: Sergey285830/fakel-site
   branch: main
-  base_url: https://api.netlify.com # Убираем или меняем, либо используем прокси Vercel
+  auth_type: implicit # Прямая авторизация через токен/окно GitHub
+  app_id: ''
 
 media_folder: "Fakel_Site/img"
 public_folder: "img"
