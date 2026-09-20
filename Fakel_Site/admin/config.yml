@@ -2,8 +2,7 @@ backend:
   name: github
   repo: Sergey285830/fakel-site
   branch: main
-  auth_type: implicit # Прямая авторизация через токен/окно GitHub
-  app_id: ''
+  site_id: footballclubfakel161.vercel.app
 
 media_folder: "Fakel_Site/img"
 public_folder: "img"
