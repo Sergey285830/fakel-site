@@ -2,6 +2,7 @@ backend:
   name: github
   repo: Sergey285830/fakel-site
   branch: main
+  base_url: https://sveltia-cms-auth.pages.dev
 
 media_folder: "Fakel_Site/img"
 public_folder: "img"
