@@ -7,7 +7,6 @@ backend:
 
 media_folder: "Fakel_Site/img"
 public_folder: "img"
-
 locale: 'ru'
 
 collections:
