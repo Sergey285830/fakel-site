@@ -2,7 +2,8 @@ backend:
   name: github
   repo: Sergey285830/fakel-site
   branch: main
-  base_url: https://astro-decap-cms-oauth.vercel.app
+  auth_type: pkce
+  app_id: Ov23liklgtXDLXis0LRx
 
 media_folder: "Fakel_Site/img"
 public_folder: "img"
