@@ -6,19 +6,6 @@
   <title>Админ-панель | ЛФК Факел</title>
 </head>
 <body>
-  <!-- Подключаем Decap CMS со встроенным модулем аутентификации -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script src="https://unpkg.com/decap-cms@^3.1.2/dist/decap-cms.js"></script>
-  <script>
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", user => {
-        if (!user) {
-          window.netlifyIdentity.on("login", () => {
-            document.location.reload();
-          });
-        }
-      });
-    }
-  </script>
 </body>
 </html>
