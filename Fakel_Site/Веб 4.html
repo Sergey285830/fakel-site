@@ -170,8 +170,11 @@
 
         <h2 class="section-title" data-aos="fade-right">ПРЕДСТОЯЩИЕ МАТЧИ</h2>
         <div class="match-card" data-aos="fade-up" style="padding: 15px 25px;">
-            <table class="standings-table" style="text-align: left;" id="upcoming-table">
-                <tr><th style="text-align:left;">Дата</th><th style="text-align:left;">Матч</th></tr>
+            <table class="standings-table" id="upcoming-table">
+                <tr>
+                    <th style="text-align:left; width: 40%;">Дата</th>
+                    <th style="text-align:left;">Матч</th>
+                </tr>
             </table>
         </div>
     </div>
@@ -231,7 +234,10 @@
             .then(data => {
                 const table = document.getElementById('upcoming-table');
                 data.matches.forEach(match => {
-                    table.innerHTML += `<tr><td>${match.date}</td><td><strong>${match.title}</strong></td></tr>`;
+                    table.innerHTML += `<tr>
+                        <td style="text-align: left;">${match.date}</td>
+                        <td style="text-align: left;"><strong>${match.title}</strong></td>
+                    </tr>`;
                 });
             });
     </script>
