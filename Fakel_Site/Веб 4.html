@@ -135,7 +135,7 @@
     <div class="container">
         <h2 class="section-title" data-aos="fade-right">ТУРНИРНАЯ ТАБЛИЦА | ВЫСШАЯ ЛИГА</h2>
         <div class="match-card" data-aos="fade-up" style="padding: 15px 20px; overflow-x: auto;">
-            <table class="standings-table">
+            <table class="standings-table" id="standings-table">
                 <tr>
                     <th style="width: 30px;">#</th>
                     <th class="team-cell">Команда</th>
@@ -146,16 +146,7 @@
                     <th title="Разница голов">РГ</th>
                     <th title="Очки">Очки</th>
                 </tr>
-                <tr><td>1</td><td class="team-cell">FC Soroka</td><td>2</td><td>1</td><td>1</td><td>0</td><td>3</td><td><strong>4</strong></td></tr>
-                <tr><td>2</td><td class="team-cell">The Smash</td><td>2</td><td>1</td><td>0</td><td>1</td><td>6</td><td><strong>3</strong></td></tr>
-                <tr class="fakel-row">
-                    <td>3</td><td class="team-cell">Факел</td><td>2</td><td>1</td><td>0</td><td>1</td><td>3</td><td><strong>3</strong></td>
-                </tr>
-                <tr><td>4</td><td class="team-cell">Виртуоз</td><td>2</td><td>1</td><td>0</td><td>1</td><td>-1</td><td><strong>3</strong></td></tr>
-                <tr><td>5</td><td class="team-cell">ZaDrots</td><td>2</td><td>1</td><td>0</td><td>1</td><td>-1</td><td><strong>3</strong></td></tr>
-                <tr><td>6</td><td class="team-cell">АКД</td><td>2</td><td>1</td><td>0</td><td>1</td><td>-2</td><td><strong>3</strong></td></tr>
-                <tr><td>7</td><td class="team-cell">ФК Батайск</td><td>2</td><td>1</td><td>0</td><td>1</td><td>-6</td><td><strong>3</strong></td></tr>
-                <tr><td>8</td><td class="team-cell">ФК Рассвет</td><td>2</td><td>0</td><td>1</td><td>1</td><td>-2</td><td><strong>1</strong></td></tr>
+                <!-- Строки таблицы будут загружаться скриптом из файла JSON -->
             </table>
         </div>
 
@@ -211,6 +202,30 @@
             document.getElementById('overlay').classList.toggle('active');
             document.body.style.overflow = document.body.style.overflow === 'hidden' ? 'auto' : 'hidden';
         }
+
+        // Скрипт для загрузки турнирной таблицы из CMS
+        fetch('data/standings.json')
+            .then(response => response.json())
+            .then(data => {
+                const table = document.getElementById('standings-table');
+                data.teams.forEach(team => {
+                    const isFakel = team.name === 'Факел' ? 'class="fakel-row"' : '';
+                    const fakelCell = team.name === 'Факел' ? 'style="color: var(--text-main);"' : '';
+                    
+                    const row = `<tr ${isFakel}>
+                        <td>${team.position}</td>
+                        <td class="team-cell" ${fakelCell}>${team.name}</td>
+                        <td>${team.games}</td>
+                        <td>${team.wins}</td>
+                        <td>${team.draws}</td>
+                        <td>${team.losses}</td>
+                        <td>${team.goals_diff}</td>
+                        <td><strong>${team.points}</strong></td>
+                    </tr>`;
+                    table.innerHTML += row;
+                });
+            })
+            .catch(error => console.error('Ошибка загрузки таблицы:', error));
     </script>
 </body>
 </html>
