@@ -3,81 +3,81 @@
     {
       "position": 1,
       "name": "FC Soroka",
-      "games": 2,
-      "wins": 1,
+      "games": 3,
+      "wins": 2,
       "draws": 1,
       "losses": 0,
-      "goals_diff": "3",
-      "points": 4
-    },
-    {
-      "position": 2,
-      "name": "The Smash",
-      "games": 2,
-      "wins": 1,
-      "draws": 0,
-      "losses": 1,
-      "goals_diff": "6",
-      "points": 3
+      "goals_diff": "8",
+      "points": 7
     },
     {
       "position": 3,
-      "name": "Факел",
-      "games": 2,
-      "wins": 1,
+      "name": "The Smash",
+      "games": 3,
+      "wins": 2,
       "draws": 0,
       "losses": 1,
-      "goals_diff": "3",
-      "points": 3
-    },
-    {
-      "position": 4,
-      "name": "Виртуоз",
-      "games": 2,
-      "wins": 1,
-      "draws": 0,
-      "losses": 1,
-      "goals_diff": "-1",
-      "points": 3
+      "goals_diff": "8",
+      "points": 6
     },
     {
       "position": 5,
-      "name": "ZaDrots",
-      "games": 2,
+      "name": "Факел",
+      "games": 3,
       "wins": 1,
       "draws": 0,
-      "losses": 1,
-      "goals_diff": "-1",
-      "points": 3
-    },
-    {
-      "position": 6,
-      "name": "АКД",
-      "games": 2,
-      "wins": 1,
-      "draws": 0,
-      "losses": 1,
+      "losses": 2,
       "goals_diff": "-2",
       "points": 3
     },
     {
-      "position": 7,
-      "name": "ФК Батайск",
-      "games": 2,
+      "position": 6,
+      "name": "Виртуоз",
+      "games": 3,
       "wins": 1,
       "draws": 0,
+      "losses": 2,
+      "goals_diff": "-3",
+      "points": 3
+    },
+    {
+      "position": 2,
+      "name": "ZaDrots",
+      "games": 3,
+      "wins": 2,
+      "draws": 0,
       "losses": 1,
-      "goals_diff": "-6",
+      "goals_diff": "5",
+      "points": 6
+    },
+    {
+      "position": 4,
+      "name": "АКД",
+      "games": 3,
+      "wins": 2,
+      "draws": 0,
+      "losses": 1,
+      "goals_diff": "-1",
+      "points": 6
+    },
+    {
+      "position": 7,
+      "name": "ФК Батайск",
+      "games": 3,
+      "wins": 1,
+      "draws": 0,
+      "losses": 2,
+      "goals_diff": "-7",
       "points": 3
     },
     {
       "position": 8,
       "name": "ФК Рассвет",
-      "games": 2,
+      "games": 3,
       "wins": 0,
       "draws": 1,
-      "losses": 1,
-      "goals_diff": "-2",
+      "losses": 2,
+      "goals_diff": "-8",
       "points": 1
     }
   ]
