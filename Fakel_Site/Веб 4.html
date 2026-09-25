@@ -146,48 +146,32 @@
                     <th title="Разница голов">РГ</th>
                     <th title="Очки">Очки</th>
                 </tr>
-                <!-- Строки таблицы будут загружаться скриптом из файла JSON -->
             </table>
         </div>
 
         <h2 class="section-title" data-aos="fade-right">ПОСЛЕДНИЕ РЕЗУЛЬТАТЫ</h2>
         <div class="match-card" data-aos="fade-up">
-            <div class="match-header">
-                <span>1-й тур | EVO Высшая лига</span>
-                <span>06.09.2026 | Стадион: Гребной канал</span>
+            <div class="match-header" id="latest-header">
+                <!-- Данные загрузятся скриптом -->
             </div>
             
             <div class="match-scoreboard">
-                <div class="team">ФК Батайск</div>
-                <div class="score">3 : 2</div>
-                <div class="team">ЛФК Факел</div>
+                <div class="team" id="team1-name">-</div>
+                <div class="score" id="match-score">- : -</div>
+                <div class="team" id="team2-name">-</div>
             </div>
             
             <div class="match-events-grid">
-                <div class="team-events left">
-                    <div class="event">Дмитрий Гавель (пен.) <span>15'</span></div>
-                    <div class="event">Дмитрий Гавель (пас И. Петров) <span>30'</span></div>
-                    <div class="event">Егор Бондаренко <span>59'</span></div>
-                </div>
-                
+                <div class="team-events left" id="team1-events"></div>
                 <div class="event-spacer"></div>
-                
-                <div class="team-events right">
-                    <div class="event"><span>11'</span> Валерий Тимонин (пас С. Гончаренко)</div>
-                    <div class="event"><span>24'</span> Даниил Стёпкин</div>
-                </div>
+                <div class="team-events right" id="team2-events"></div>
             </div>
         </div>
 
         <h2 class="section-title" data-aos="fade-right">ПРЕДСТОЯЩИЕ МАТЧИ</h2>
         <div class="match-card" data-aos="fade-up" style="padding: 15px 25px;">
-            <table class="standings-table" style="text-align: left;">
+            <table class="standings-table" style="text-align: left;" id="upcoming-table">
                 <tr><th style="text-align:left;">Дата</th><th style="text-align:left;">Матч</th></tr>
-                <tr><td>19.09 (3 тур)</td><td><strong>FC Soroka — Факел</strong></td></tr>
-                <tr><td>26.09 (4 тур)</td><td><strong>Факел — ZaDrots</strong></td></tr>
-                <tr><td>03.10 (5 тур)</td><td><strong>Виртуоз — Факел</strong></td></tr>
-                <tr><td>10.10 (6 тур)</td><td><strong>Факел — ФК Рассвет</strong></td></tr>
-                <tr><td>17.10 (7 тур)</td><td><strong>The Smash — Факел</strong></td></tr>
             </table>
         </div>
     </div>
@@ -203,20 +187,16 @@
             document.body.style.overflow = document.body.style.overflow === 'hidden' ? 'auto' : 'hidden';
         }
 
-        // Скрипт для загрузки турнирной таблицы из CMS
+        // Загрузка Турнирной таблицы
         fetch('data/standings.json')
             .then(response => response.json())
             .then(data => {
                 const table = document.getElementById('standings-table');
-                
-                // СОРТИРОВКА КОМАНД ПО ПОЗИЦИИ (от 1 до 8)
                 data.teams.sort((a, b) => a.position - b.position);
-                
                 data.teams.forEach(team => {
                     const isFakel = team.name === 'Факел' ? 'class="fakel-row"' : '';
                     const fakelCell = team.name === 'Факел' ? 'style="color: var(--text-main);"' : '';
-                    
-                    const row = `<tr ${isFakel}>
+                    table.innerHTML += `<tr ${isFakel}>
                         <td>${team.position}</td>
                         <td class="team-cell" ${fakelCell}>${team.name}</td>
                         <td>${team.games}</td>
@@ -226,10 +206,34 @@
                         <td>${team.goals_diff}</td>
                         <td><strong>${team.points}</strong></td>
                     </tr>`;
-                    table.innerHTML += row;
                 });
-            })
-            .catch(error => console.error('Ошибка загрузки таблицы:', error));
+            });
+
+        // Загрузка Последнего матча
+        fetch('data/latest_result.json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('latest-header').innerHTML = `<span>${data.match_info}</span>`;
+                document.getElementById('team1-name').textContent = data.team1;
+                document.getElementById('match-score').textContent = data.score;
+                document.getElementById('team2-name').textContent = data.team2;
+                
+                const events1 = document.getElementById('team1-events');
+                if(data.events1) data.events1.forEach(e => events1.innerHTML += `<div class="event">${e.event}</div>`);
+                
+                const events2 = document.getElementById('team2-events');
+                if(data.events2) data.events2.forEach(e => events2.innerHTML += `<div class="event">${e.event}</div>`);
+            });
+
+        // Загрузка Предстоящих матчей
+        fetch('data/upcoming.json')
+            .then(response => response.json())
+            .then(data => {
+                const table = document.getElementById('upcoming-table');
+                data.matches.forEach(match => {
+                    table.innerHTML += `<tr><td>${match.date}</td><td><strong>${match.title}</strong></td></tr>`;
+                });
+            });
     </script>
 </body>
 </html>
