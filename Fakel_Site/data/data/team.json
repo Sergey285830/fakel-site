@@ -1,0 +1,124 @@
+{
+  "players": [
+    {
+      "name": "Лазарев Андрей",
+      "number": "1",
+      "category": "Вратари",
+      "image": "img/andrey.jpg",
+      "is_captain": false,
+      "birthdate": "05.04.2005",
+      "physique": "180 см / 85 кг",
+      "foot": "Правая",
+      "debut": "Март 2025",
+      "stats": "1 сухой матч."
+    },
+    {
+      "name": "Гончаренко Артём",
+      "number": "2",
+      "category": "Защитники",
+      "image": "img/artem.jpg",
+      "is_captain": false,
+      "birthdate": "19.02.2005",
+      "physique": "182 см / 73 кг",
+      "foot": "Правая",
+      "debut": "С основания клуба",
+      "stats": "12 голов, 3 голевые передачи."
+    },
+    {
+      "name": "Пилипенко Василий",
+      "number": "3",
+      "category": "Защитники",
+      "image": "img/vasya.jpg",
+      "is_captain": false,
+      "birthdate": "22.08.2006",
+      "physique": "175 см / 73 кг",
+      "foot": "Левая",
+      "debut": "С основания клуба",
+      "stats": "2 гола, 3 голевые передачи."
+    },
+    {
+      "name": "Микрюков Никита",
+      "number": "12",
+      "category": "Защитники",
+      "image": "img/mikryukov.jpg",
+      "is_captain": false,
+      "birthdate": "12.09.2005",
+      "physique": "184 см / 81 кг",
+      "foot": "Правая",
+      "debut": "С основания клуба",
+      "stats": "8 голов, 11 голевых передач."
+    },
+    {
+      "name": "Гончаренко Сергей",
+      "number": "9",
+      "category": "Полузащитники",
+      "image": "img/sergey.jpg",
+      "is_captain": true,
+      "birthdate": "08.10.2006",
+      "physique": "191 см / 87 кг",
+      "foot": "Правая",
+      "debut": "С основания клуба",
+      "stats": "71 гол, 22 голевые передачи."
+    },
+    {
+      "name": "Блохин Андрей",
+      "number": "4",
+      "category": "Полузащитники",
+      "image": "img/blokhin.jpg",
+      "is_captain": false,
+      "birthdate": "13.11.2007",
+      "physique": "178 см / 72 кг",
+      "foot": "Правая",
+      "debut": "Май 2026",
+      "stats": "2 гола, 1 голевая передача."
+    },
+    {
+      "name": "Ашихмин Антон",
+      "number": "14",
+      "category": "Полузащитники",
+      "image": "img/ashikhmin.jpg",
+      "is_captain": false,
+      "birthdate": "01.06.2006",
+      "physique": "183 см / 75 кг",
+      "foot": "Правая",
+      "debut": "С основания клуба",
+      "stats": "12 голов, 4 голевые передачи."
+    },
+    {
+      "name": "Бугаенко Илья",
+      "number": "69",
+      "category": "Полузащитники",
+      "image": "img/bugaenko.jpg",
+      "is_captain": false,
+      "birthdate": "03.06.2008",
+      "physique": "186 см / 70 кг",
+      "foot": "Правая",
+      "debut": "Октябрь 2024",
+      "stats": "3 гола."
+    },
+    {
+      "name": "Степкин Даниил",
+      "number": "70",
+      "category": "Полузащитники",
+      "image": "img/stepkin.jpg",
+      "is_captain": false,
+      "birthdate": "12.04.2006",
+      "physique": "175 см / 68 кг",
+      "foot": "Правая",
+      "debut": "Сентябрь 2026",
+      "stats": "3 гола, 3 голевые передачи."
+    },
+    {
+      "name": "Тимонин Валерий",
+      "number": "7",
+      "category": "Нападающие",
+      "image": "img/valera.jpg",
+      "is_captain": false,
+      "birthdate": "26.03.2007",
+      "physique": "183 см / 72 кг",
+      "foot": "Обе",
+      "debut": "Сентябрь 2025",
+      "stats": "15 голов, 10 голевых передач."
+    }
+  ]
+}
