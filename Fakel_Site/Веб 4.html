@@ -208,6 +208,10 @@
             .then(response => response.json())
             .then(data => {
                 const table = document.getElementById('standings-table');
+                
+                // СОРТИРОВКА КОМАНД ПО ПОЗИЦИИ (от 1 до 8)
+                data.teams.sort((a, b) => a.position - b.position);
+                
                 data.teams.forEach(team => {
                     const isFakel = team.name === 'Факел' ? 'class="fakel-row"' : '';
                     const fakelCell = team.name === 'Факел' ? 'style="color: var(--text-main);"' : '';
