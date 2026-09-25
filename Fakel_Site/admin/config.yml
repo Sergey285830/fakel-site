@@ -30,3 +30,23 @@ collections:
       - {label: "Дата матча", name: "date", widget: "datetime"}
       - {label: "Счет", name: "score", widget: "string", required: false}
       - {label: "Отчет об игре", name: "body", widget: "markdown", required: false}
+
+  - name: "data"
+    label: "Данные сайта"
+    files:
+      - label: "Турнирная таблица"
+        name: "standings"
+        file: "Fakel_Site/data/standings.json"
+        fields:
+          - label: "Команды"
+            name: "teams"
+            widget: "list"
+            fields:
+              - {label: "Позиция", name: "position", widget: "number"}
+              - {label: "Название", name: "name", widget: "string"}
+              - {label: "Игры", name: "games", widget: "number"}
+              - {label: "Победы", name: "wins", widget: "number"}
+              - {label: "Ничьи", name: "draws", widget: "number"}
+              - {label: "Поражения", name: "losses", widget: "number"}
+              - {label: "Разница голов", name: "goals_diff", widget: "string"}
+              - {label: "Очки", name: "points", widget: "number"}
