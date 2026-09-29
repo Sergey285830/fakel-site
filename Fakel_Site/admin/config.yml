@@ -10,8 +10,21 @@ locale: 'ru'
 
 collections:
   - name: "data"
-    label: "Данные сайта"
+    label: "Управление сайтом"
     files:
+      - label: "Новости на главной"
+        name: "news_feed"
+        file: "Fakel_Site/data/news.json"
+        fields:
+          - label: "Посты"
+            name: "posts"
+            widget: "list"
+            fields:
+              - {label: "Заголовок", name: "title", widget: "string"}
+              - {label: "Дата", name: "date", widget: "string"}
+              - {label: "Текст", name: "body", widget: "text"}
+              - {label: "Фотография", name: "image", widget: "image", required: false}
+
       - label: "Турнирная таблица"
         name: "standings"
         file: "Fakel_Site/data/standings.json"
@@ -42,13 +55,13 @@ collections:
             widget: "list"
             required: false
             fields:
-              - {label: "Игрок и минута", name: "event", widget: "string"}
+              - {label: "Событие и минута", name: "event", widget: "string"}
           - label: "События Команды 2"
             name: "events2"
             widget: "list"
             required: false
             fields:
-              - {label: "Игрок и минута", name: "event", widget: "string"}
+              - {label: "Событие и минута", name: "event", widget: "string"}
 
       - label: "Предстоящие матчи"
         name: "upcoming"
