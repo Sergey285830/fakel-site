@@ -13,10 +13,64 @@
     
     <!-- Подключение единого файла стилей с цветами клуба -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- Скрипт ВКонтакте -->
+    <script src="https://vk.com/js/api/openapi.js?169" type="text/javascript"></script>
+
+    <style>
+        /* Сетка для главной страницы */
+        .home-grid {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 30px;
+            align-items: start;
+        }
+        .cms-news-card {
+            background: var(--bg-panel);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(0, 195, 255, 0.15);
+            box-shadow: 0 10px 30px rgba(11, 29, 58, 0.05);
+        }
+        .cms-news-card img {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            max-height: 400px;
+            object-fit: cover;
+        }
+        .cms-news-date {
+            color: var(--brand-light-blue);
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .cms-news-title {
+            color: var(--brand-blue);
+            font-size: 24px;
+            margin: 0 0 15px 0;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+        .vk-widget-container {
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 195, 255, 0.15);
+            box-shadow: 0 10px 30px rgba(11, 29, 58, 0.05);
+            position: sticky;
+            top: 100px;
+        }
+        @media (max-width: 900px) {
+            .home-grid { grid-template-columns: 1fr; }
+            .vk-widget-container { position: static; }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Шапка сайта (как на скриншоте) -->
     <header id="top" data-aos="fade-down" data-aos-duration="1000">
         <img src="img/logo.png" alt="Логотип ЛФК Факел" class="logo">
         <h1 class="title">ЛФК <span>«Факел»</span></h1>
@@ -47,16 +101,23 @@
     </aside>
 
     <div class="container">
-        <!-- Лента сообщества -->
-        <h2 class="section-title" data-aos="fade-right">ЛЕНТА СООБЩЕСТВА</h2>
         
-        <div class="content-card" data-aos="fade-up">
-            <h3>Добро пожаловать на обновленный сайт!</h3>
-            <p>Мы перешли на новый фирменный дизайн в бело-сине-голубых тонах. Следите за новостями клуба, актуальным расписанием матчей и турнирной таблицей в нашем матч-центре.</p>
+        <div class="home-grid">
+            <!-- Левая колонка: Новости из админки -->
+            <div class="news-feed-section">
+                <h2 class="section-title" data-aos="fade-right">НОВОСТИ КЛУБА</h2>
+                <div id="cms-news-container">
+                    <!-- Посты загрузятся скриптом -->
+                </div>
+            </div>
+
+            <!-- Правая колонка: Виджет ВКонтакте -->
+            <div class="vk-section">
+                <h2 class="section-title" data-aos="fade-left">ВКОНТАКТЕ</h2>
+                <div class="vk-widget-container" id="vk_groups"></div>
+            </div>
         </div>
 
-        <!-- Здесь в будущем можно будет настроить автоматический вывод новостей из CMS -->
-        
     </div>
 
     <footer>
@@ -68,12 +129,43 @@
     <script>
         AOS.init({ once: true, offset: 100 });
         
-        // Функция для открытия/закрытия бокового меню
         function toggleMenu() {
             document.getElementById('sidebar').classList.toggle('active');
             document.getElementById('overlay').classList.toggle('active');
             document.body.style.overflow = document.body.style.overflow === 'hidden' ? 'auto' : 'hidden';
         }
+
+        // Загрузка новостей из CMS (news.json)
+        fetch('data/news.json')
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('cms-news-container');
+                // Переворачиваем массив, чтобы новые посты были сверху
+                const posts = data.posts.reverse(); 
+                
+                posts.forEach(post => {
+                    const imgHtml = post.image ? `<img src="${post.image}" alt="${post.title}">` : '';
+                    container.innerHTML += `
+                        <article class="cms-news-card" data-aos="fade-up">
+                            ${imgHtml}
+                            <span class="cms-news-date">${post.date}</span>
+                            <h3 class="cms-news-title">${post.title}</h3>
+                            <p style="color: var(--text-muted); font-weight: 500; white-space: pre-wrap;">${post.body}</p>
+                        </article>
+                    `;
+                });
+            })
+            .catch(error => console.error('Ошибка загрузки новостей:', error));
+
+        // Инициализация виджета ВК с ID твоей группы
+        VK.Widgets.Group("vk_groups", {
+            mode: 4, 
+            wide: 1, 
+            height: "800", 
+            color1: "FFFFFF", 
+            color2: "0B1D3A", 
+            color3: "00C3FF"
+        }, 227517599); 
     </script>
 </body>
 </html>
