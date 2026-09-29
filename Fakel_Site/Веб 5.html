@@ -8,87 +8,15 @@
     <link rel="icon" type="image/png" href="img/logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-    <style>
-        :root { 
-            --bg-base: #030712; 
-            --bg-panel: rgba(15, 23, 42, 0.75);
-            --accent-blue: #2563eb; 
-            --accent-gold: #f59e0b; 
-            --text-main: #f8fafc; 
-            --text-muted: #94a3b8; 
-        }
-        html { scroll-behavior: smooth; font-family: 'Montserrat', sans-serif; }
-        body { 
-            background-color: var(--bg-base); 
-            background-image: 
-                radial-gradient(circle at 15% 15%, rgba(37, 99, 235, 0.22) 0%, transparent 45%), 
-                radial-gradient(circle at 85% 85%, rgba(30, 58, 138, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.8) 0%, #030712 100%),
-                url('img/logo.png'), url('img/logo.png');
-            background-repeat: no-repeat, no-repeat, no-repeat, repeat, repeat;
-            background-position: 0 0, 0 0, 0 0, 10% 30%, 90% 70%;
-            background-size: auto, auto, auto, 350px, 450px;
-            background-blend-mode: normal, normal, normal, overlay, overlay;
-            background-attachment: fixed; 
-            color: var(--text-main); 
-            margin: 0; padding: 0; line-height: 1.6; 
-        }
-        body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(3, 7, 18, 0.83); z-index: -1; pointer-events: none; }
-        
-        h1, h2, h3, .menu-btn, .sidebar-menu a { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
-
-        header { text-align: center; padding: 60px 20px 30px; position: relative; z-index: 2; }
-        .logo { width: 220px; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.6); margin-bottom: 20px; transition: transform 0.4s ease; border: 1px solid rgba(255,255,255,0.1); }
-        .logo:hover { transform: scale(1.05); }
-        .title { color: var(--text-main); font-size: 42px; margin: 0 0 10px; font-weight: 700; letter-spacing: 1px; text-shadow: 0 4px 20px rgba(0,0,0,0.5); }
-        
-        .nav { display: flex; align-items: center; padding: 20px 40px; background: rgba(3, 7, 18, 0.85); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .menu-btn { cursor: pointer; display: flex; align-items: center; gap: 12px; color: var(--text-main); font-size: 16px; letter-spacing: 2px; }
-        .menu-btn:hover { color: var(--accent-gold); }
-        .hamburger-icon { font-size: 24px; line-height: 1; }
-        
-        .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px); z-index: 998; opacity: 0; visibility: hidden; transition: 0.4s; }
-        .sidebar-overlay.active { opacity: 1; visibility: visible; }
-        .sidebar { position: fixed; top: 0; left: -400px; width: 350px; height: 100%; background: #0b1329; z-index: 999; box-shadow: 20px 0 50px rgba(0,0,0,0.9); transition: left 0.5s cubic-bezier(0.16, 1, 0.3, 1); overflow-y: auto; padding: 50px 30px; border-right: 1px solid rgba(255,255,255,0.05); }
-        .sidebar.active { left: 0; }
-        .close-btn { position: absolute; top: 25px; right: 30px; font-size: 40px; color: var(--text-muted); cursor: pointer; font-weight: 300; }
-        .close-btn:hover { color: var(--accent-gold); transform: rotate(90deg); }
-        
-        .sidebar-menu { list-style: none; padding: 0; margin: 40px 0 0 0; }
-        .sidebar-menu li { margin-bottom: 10px; }
-        .sidebar-menu a { display: block; color: var(--text-main); text-decoration: none; font-size: 20px; padding: 15px 20px; transition: all 0.3s ease; border-left: 2px solid transparent; letter-spacing: 1px; }
-        .sidebar-menu a:hover, .sidebar-menu a.active { background: rgba(255, 255, 255, 0.04); border-left: 2px solid var(--accent-gold); color: var(--accent-gold); padding-left: 30px; }
-        .sidebar-title { color: var(--text-muted); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 3px; margin: 30px 0 10px 20px; opacity: 0.5; }
-        
-        .container { max-width: 900px; margin: 0 auto; padding: 60px 20px; position: relative; z-index: 2; }
-        .section-title { font-size: 36px; color: var(--text-main); margin-bottom: 40px; display: flex; align-items: center; gap: 15px; }
-        .section-title::before { content: ''; width: 40px; height: 4px; background: var(--accent-gold); display: block; }
-        
-        .partner-card { background: var(--bg-panel); padding: 50px; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7); backdrop-filter: blur(10px); margin-bottom: 40px; }
-        .partner-card h3 { font-size: 24px; color: var(--accent-gold); margin-top: 0; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px; }
-        .partner-card p { font-size: 16px; color: #cbd5e1; line-height: 1.8; margin-bottom: 20px; }
-        
-        .benefits-list { list-style: none; padding: 0; margin: 20px 0; }
-        .benefits-list li { position: relative; padding-left: 30px; margin-bottom: 15px; color: var(--text-main); font-size: 16px; }
-        .benefits-list li::before { content: '✓'; position: absolute; left: 0; top: 0; color: var(--accent-gold); font-weight: bold; font-size: 18px; }
-        
-        .contact-block { background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); padding: 40px; border-radius: 16px; text-align: center; margin-top: 40px; backdrop-filter: blur(10px); }
-        .contact-block h4 { font-size: 22px; margin: 0 0 15px 0; color: var(--text-main); font-family: 'Oswald', sans-serif; letter-spacing: 1px; }
-        
-        footer { text-align: center; padding: 50px 20px; color: var(--text-muted); background: #030712; border-top: 1px solid rgba(255, 255, 255, 0.05); font-size: 14px; margin-top: 40px; position: relative; z-index: 2; }
-        
-        @media (max-width: 768px) {
-            .partner-card { padding: 30px 20px; }
-            .title { font-size: 32px; }
-        }
-    </style>
+    
+    <!-- Подключение дизайна -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header data-aos="fade-down" data-aos-duration="1000">
+    <header id="top" data-aos="fade-down" data-aos-duration="1000">
         <img src="img/logo.png" alt="Логотип ЛФК Факел" class="logo">
         <h1 class="title">ПАРТНЕРАМ</h1>
     </header>
@@ -117,42 +45,30 @@
     </aside>
 
     <div class="container">
-        <h2 class="section-title" data-aos="fade-right">КОММЕРЧЕСКОЕ ПРЕДЛОЖЕНИЕ</h2>
-        
+        <h2 class="section-title" data-aos="fade-right">СОТРУДНИЧЕСТВО</h2>
         <div class="partner-card" data-aos="fade-up">
-            <h3>Сотрудничество с ЛФК «Факел»</h3>
-            <p>ЛФК «Факел» открыт для взаимовыгодного сотрудничества с брендами и компаниями. Мы предлагаем уникальную возможность интеграции вашего бизнеса в активно развивающийся спортивный проект.</p>
-            <p>Сотрудничество с нами — это прямой выход на вовлеченную аудиторию спортсменов, болельщиков и любителей активного образа жизни.</p>
+            <h3>Поддержите ЛФК «Факел»</h3>
+            <p>Мы открыты для сотрудничества со спонсорами и партнерами. Поддерживая нашу команду, вы вносите вклад в развитие любительского спорта в Ростове-на-Дону.</p>
             
+            <h4 style="color: var(--brand-blue); font-family: 'Oswald', sans-serif; font-size: 20px; margin-top: 30px;">Что мы предлагаем:</h4>
             <ul class="benefits-list">
-                <li>Размещение логотипа вашей компании на игровой и тренировочной форме.</li>
-                <li>Интеграция вашего бренда в наши социальные сети: ВКонтакте, TikTok, Reels и YouTube Shorts.</li>
-                <li>Брендирование графики и отчетов о матчах в рамках официального матч-центра.</li>
-                <li>Упоминание спонсора в видеороликах, интервью и прямых трансляциях.</li>
-                <li>Проведение совместных рекламных акций и розыгрышей.</li>
+                <li>Размещение логотипа вашей компании на игровой форме команды.</li>
+                <li>Упоминание спонсора в социальных сетях (ВКонтакте) и на официальном сайте.</li>
+                <li>Рекламная интеграция в предматчевых анонсах и обзорах игр.</li>
+                <li>Позитивный имидж компании, поддерживающей здоровый образ жизни.</li>
             </ul>
         </div>
 
-        <div class="contact-block" data-aos="fade-up" data-aos-delay="100">
+        <div class="contact-block" data-aos="fade-up">
             <h4>СВЯЗАТЬСЯ С НАМИ</h4>
-            <p style="color: var(--text-muted); margin-bottom: 25px;">Для обсуждения индивидуальных спонсорских пакетов:</p>
-            
-            <div style="display: flex; flex-direction: column; gap: 15px; align-items: center; font-size: 18px; font-weight: 600;">
-                <a href="tel:89281281604" style="color: var(--text-main); text-decoration: none; transition: color 0.3s;">
-                    Телефон: <span style="color: var(--accent-gold);">8 (928) 128-16-04</span> (Сергей)
-                </a>
-                <a href="https://vk.ru/ms.serega_g" target="_blank" style="color: var(--text-main); text-decoration: none; transition: color 0.3s;">
-                    ВКонтакте: <span style="color: var(--accent-gold);">ms.serega_g</span>
-                </a>
-                <a href="https://t.me/ms_serega_g" target="_blank" style="color: var(--text-main); text-decoration: none; transition: color 0.3s;">
-                    Telegram: <span style="color: var(--accent-gold);">@ms_serega_g</span>
-                </a>
-            </div>
+            <p>По вопросам сотрудничества обращайтесь в личные сообщения нашего официального сообщества ВКонтакте или по электронной почте.</p>
+            <!-- Ссылка на ВК Факела -->
+            <a href="https://vk.com/footballclubfakel161" target="_blank" style="display: inline-block; margin-top: 15px; padding: 12px 30px; background: var(--brand-blue); color: #fff; text-decoration: none; border-radius: 8px; font-weight: 600; text-transform: uppercase; font-size: 14px; letter-spacing: 1px;">Написать ВКонтакте</a>
         </div>
     </div>
 
     <footer>
-        <p>Время зажечь Факел</p>
+        <p>Время зажечь Факел!</p>
         <p>© 2026, ЛФК «Факел» | Ростов-на-Дону</p>
     </footer>
 
