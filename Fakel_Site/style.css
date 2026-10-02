@@ -70,12 +70,18 @@ header {
 
 /* Навигация */
 .nav { 
-    display: flex; align-items: center; padding: 15px 40px; 
+    display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; 
     background: rgba(255, 255, 255, 0.95); 
     position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); 
     border-bottom: 2px solid rgba(0, 195, 255, 0.2); 
     box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
 }
+.nav-logo {
+    height: 40px; border-radius: 8px; transition: 0.3s;
+    box-shadow: 0 0 10px rgba(0, 195, 255, 0.3);
+}
+.nav-logo:hover { transform: scale(1.1); box-shadow: 0 0 15px rgba(255, 69, 0, 0.5); }
+
 .menu-btn { cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 16px; letter-spacing: 2px; color: var(--brand-blue); font-weight: 700; }
 .menu-btn:hover { color: var(--brand-fire-orange); }
 .hamburger-icon { font-size: 24px; line-height: 1; color: var(--brand-light-blue); }
