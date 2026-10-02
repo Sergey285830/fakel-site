@@ -4,85 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ЛФК «Факел» | Официальный сайт</title>
-    
     <link rel="icon" type="image/png" href="img/logo.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
     <link rel="stylesheet" href="style.css">
-
-    <style>
-        /* Лента по центру в один столбец */
-        .news-feed-section {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .cms-news-card {
-            background: var(--bg-panel);
-            border-radius: 16px;
-            padding: 30px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(0, 195, 255, 0.15);
-            box-shadow: 0 10px 30px rgba(11, 29, 58, 0.05);
-            transition: transform 0.3s ease;
-        }
-        .cms-news-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--brand-light-blue);
-        }
-        .cms-news-card img {
-            width: 100%;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            max-height: 500px;
-            object-fit: cover;
-        }
-        .cms-news-date {
-            color: var(--brand-light-blue);
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            display: block;
-        }
-        .cms-news-title {
-            color: var(--brand-blue);
-            font-size: 26px;
-            margin: 0 0 15px 0;
-            font-family: 'Oswald', sans-serif;
-            text-transform: uppercase;
-        }
-        .vk-link {
-            display: inline-block;
-            margin-top: 15px;
-            color: #ffffff;
-            background: var(--brand-light-blue);
-            padding: 8px 16px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 13px;
-            text-transform: uppercase;
-            transition: 0.3s;
-        }
-        .vk-link:hover {
-            background: var(--brand-fire-orange);
-        }
-    </style>
+    <script src="https://vk.com/js/api/openapi.js?169" type="text/javascript"></script>
 </head>
 <body>
 
-    <!-- Главный логотип теперь кликабелен -->
-    <header id="top" data-aos="fade-down" data-aos-duration="1000">
-        <a href="index.html">
-            <img src="img/logo.png" alt="Логотип ЛФК Факел" class="logo">
-        </a>
+    <header id="top" data-aos="fade-down">
+        <a href="index.html"><img src="img/logo.png" alt="Логотип ЛФК Факел" class="logo"></a>
         <h1 class="title">ЛФК <span>«Факел»</span></h1>
         <p class="subtitle">ОФИЦИАЛЬНЫЙ САЙТ</p>
     </header>
 
-    <!-- Плавающее меню с кнопкой домой -->
     <nav class="nav" data-aos="fade-in">
         <a href="index.html" title="На главную"><img src="img/logo.png" alt="Факел" class="nav-logo"></a>
         <div class="menu-btn" onclick="toggleMenu()">
@@ -94,10 +29,9 @@
     <aside class="sidebar" id="sidebar">
         <div class="close-btn" onclick="toggleMenu()">×</div>
         <ul class="sidebar-menu">
-            <!-- Эмблема вместо текста Главная -->
-            <li style="text-align: center; margin-bottom: 30px;">
+            <li style="text-align: center; margin-bottom: 20px;">
                 <a href="index.html" style="display: inline-block; padding: 0; border: none;">
-                    <img src="img/logo.png" style="width: 120px; border-radius: 15px; box-shadow: 0 0 20px rgba(0, 195, 255, 0.4);">
+                    <img src="img/logo.png" style="width: 100px; border-radius: 12px; box-shadow: 0 0 15px rgba(0, 195, 255, 0.4);">
                 </a>
             </li>
             <div class="sidebar-title">Клуб</div>
@@ -113,12 +47,19 @@
     </aside>
 
     <div class="container">
-        <!-- Единая лента -->
         <div class="news-feed-section">
-            <h2 class="section-title" data-aos="fade-right" style="justify-content: center; text-align: center; margin-bottom: 40px;">ЛЕНТА СООБЩЕСТВА</h2>
+            <h2 class="section-title" data-aos="fade-right" style="justify-content: center; margin-bottom: 30px;">СВЕЖИЕ НОВОСТИ</h2>
             <div id="unified-feed">
-                <!-- Посты из CMS и ВКонтакте загрузятся сюда -->
+                <!-- 3 свежих поста загрузятся сюда -->
             </div>
+        </div>
+    </div>
+
+    <!-- Раздел для старых постов -->
+    <div id="archive-section" style="display: none; max-width: 1000px; margin: 0 auto; padding: 0 10px;">
+        <h2 class="archive-title">ПРЕДЫДУЩИЕ ЗАПИСИ</h2>
+        <div class="archive-slider" id="archive-feed">
+            <!-- Карусель старых постов загрузится сюда -->
         </div>
     </div>
 
@@ -129,64 +70,46 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ once: true, offset: 100 });
+        AOS.init({ once: true, offset: 50 });
         function toggleMenu() {
             document.getElementById('sidebar').classList.toggle('active');
             document.getElementById('overlay').classList.toggle('active');
             document.body.style.overflow = document.body.style.overflow === 'hidden' ? 'auto' : 'hidden';
         }
 
-        // ==========================================
-        // СКРИПТ ЕДИНОЙ ЛЕНТЫ НОВОСТЕЙ
-        // ==========================================
-        
         let allPosts = [];
-        const VK_GROUP_ID = '-227517599'; // Минус обязателен для групп
-        const VK_TOKEN = '091ee42a091ee42a091ee42a0d0a5ad5f10091e091ee42a63a19f9ea72afca662d8c301'; // Сюда нужно вставить ключ (инструкция ниже)
+        const VK_GROUP_ID = '-227517599'; 
+        const VK_TOKEN = 'ТВОЙ_СЕРВИСНЫЙ_КЛЮЧ_ВК'; // ВСТАВЬ КЛЮЧ СЮДА
 
-        // 1. Загрузка новостей из CMS (твоя админка)
         fetch('data/news.json')
-            .then(response => response.json())
+            .then(res => res.json())
             .then(data => {
                 if (data.posts) {
                     const cmsPosts = data.posts.map(p => ({
-                        type: 'cms',
-                        title: p.title,
-                        body: p.body,
-                        image: p.image,
-                        dateStr: p.date,
-                        timestamp: parseDate(p.date)
+                        type: 'cms', title: p.title, body: p.body, image: p.image,
+                        dateStr: p.date, timestamp: parseDate(p.date)
                     }));
                     allPosts.push(...cmsPosts);
                     renderFeed();
                 }
             });
 
-        // 2. Загрузка постов из ВКонтакте (через JSONP для обхода защиты браузера)
         const script = document.createElement('script');
-        script.src = `https://api.vk.com/method/wall.get?owner_id=${VK_GROUP_ID}&count=10&access_token=${VK_TOKEN}&v=5.131&callback=processVKPosts`;
+        script.src = `https://api.vk.com/method/wall.get?owner_id=${VK_GROUP_ID}&count=15&access_token=${VK_TOKEN}&v=5.131&callback=processVKPosts`;
         document.body.appendChild(script);
 
         function processVKPosts(response) {
             if(response && response.response && response.response.items) {
                 const vkPosts = response.response.items.map(p => {
-                    // Ищем самую большую фотографию в посте
                     let imgUrl = '';
                     if(p.attachments) {
                         const photoAtt = p.attachments.find(a => a.type === 'photo');
-                        if(photoAtt) {
-                            const sizes = photoAtt.photo.sizes;
-                            imgUrl = sizes[sizes.length - 1].url;
-                        }
+                        if(photoAtt) { imgUrl = photoAtt.photo.sizes[photoAtt.photo.sizes.length - 1].url; }
                     }
                     return {
-                        type: 'vk',
-                        title: 'Сообщество ВКонтакте',
-                        body: p.text,
-                        image: imgUrl,
+                        type: 'vk', title: 'ВКонтакте', body: p.text, image: imgUrl,
                         dateStr: new Date(p.date * 1000).toLocaleDateString('ru-RU'),
-                        timestamp: p.date * 1000,
-                        link: `https://vk.com/wall${VK_GROUP_ID}_${p.id}`
+                        timestamp: p.date * 1000, link: `https://vk.com/wall${VK_GROUP_ID}_${p.id}`
                     };
                 });
                 allPosts.push(...vkPosts);
@@ -194,7 +117,6 @@
             }
         }
 
-        // Вспомогательная функция для перевода даты из админки (ДД.ММ.ГГГГ) в секунды для сортировки
         function parseDate(dateStr) {
             if(!dateStr) return 0;
             const parts = dateStr.split('.');
@@ -202,35 +124,51 @@
             return Date.now();
         }
 
-        // Отрисовка объединенной ленты
         function renderFeed() {
-            // Сортируем все посты (ВК + CMS) от новых к старым
             allPosts.sort((a, b) => b.timestamp - a.timestamp);
             
-            const container = document.getElementById('unified-feed');
-            container.innerHTML = '';
+            const mainContainer = document.getElementById('unified-feed');
+            const archiveContainer = document.getElementById('archive-feed');
+            mainContainer.innerHTML = ''; archiveContainer.innerHTML = '';
             
-            allPosts.forEach(post => {
+            const topPosts = allPosts.slice(0, 3); // 3 поста на главную
+            const olderPosts = allPosts.slice(3); // Остальные в архив
+            
+            topPosts.forEach(post => {
                 const imgHtml = post.image ? `<img src="${post.image}" alt="">` : '';
-                
-                // Если пост из ВК, делаем заголовок синим и добавляем кнопку
-                const isVK = post.type === 'vk';
-                const titleStyle = isVK ? `style="color: #0077FF;"` : ``;
-                const vkBtn = isVK ? `<br><a href="${post.link}" target="_blank" class="vk-link">Открыть в ВК →</a>` : '';
-                
-                // Убираем возможные HTML-теги из текста ВК
+                const titleStyle = post.type === 'vk' ? `style="color: #0077FF;"` : ``;
+                const vkBtn = post.type === 'vk' ? `<br><a href="${post.link}" target="_blank" class="vk-link">Открыть в ВК →</a>` : '';
                 const cleanBody = post.body.replace(/<[^>]*>?/gm, '');
 
-                container.innerHTML += `
+                mainContainer.innerHTML += `
                     <article class="cms-news-card" data-aos="fade-up">
                         ${imgHtml}
                         <span class="cms-news-date">${post.dateStr}</span>
                         <h3 class="cms-news-title" ${titleStyle}>${post.title}</h3>
-                        <p style="color: var(--text-muted); font-weight: 500; white-space: pre-wrap; word-break: break-word;">${cleanBody}</p>
-                        ${vkBtn}
+                        <p class="cms-news-text">${cleanBody}</p>${vkBtn}
                     </article>
                 `;
             });
+
+            if (olderPosts.length > 0) {
+                document.getElementById('archive-section').style.display = 'block';
+                olderPosts.forEach(post => {
+                    const imgHtml = post.image ? `<img src="${post.image}" alt="">` : '';
+                    const titleStyle = post.type === 'vk' ? `style="color: #0077FF;"` : ``;
+                    const vkBtn = post.type === 'vk' ? `<a href="${post.link}" target="_blank" class="vk-link" style="margin-top:auto;">В ВК →</a>` : '';
+                    const cleanBody = post.body.replace(/<[^>]*>?/gm, '');
+                    
+                    archiveContainer.innerHTML += `
+                        <div class="archive-card">
+                            ${imgHtml}
+                            <span class="cms-news-date">${post.dateStr}</span>
+                            <h3 class="cms-news-title" ${titleStyle}>${post.title}</h3>
+                            <p class="cms-news-text">${cleanBody}</p>
+                            ${vkBtn}
+                        </div>
+                    `;
+                });
+            }
         }
     </script>
 </body>
