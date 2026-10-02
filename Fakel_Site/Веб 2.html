@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ЛФК «Факел» | Команда</title>
     <link rel="icon" type="image/png" href="img/logo.png">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <nav class="nav" data-aos="fade-in">
-        <a href="index.html" title="На главную"><img src="img/logo.png" alt="Факел" class="nav-logo"></a>
         <div class="menu-btn" onclick="toggleMenu()">
             МЕНЮ <span class="hamburger-icon">☰</span>
         </div>
@@ -39,16 +38,16 @@
         </ul>
     </aside>
 
-    <header id="top" data-aos="fade-down">
+    <header id="top" data-aos="zoom-in" style="padding-bottom: 0;">
         <h1 class="title">КОМАНДА</h1>
     </header>
 
     <div class="container" id="roster-container">
-        <p style="text-align: center; color: var(--neon-blue);">Загрузка состава...</p>
+        <!-- Скрипт загрузит игроков -->
     </div>
 
     <footer>
-        <span>Время зажечь Факел!</span><br>
+        <span>Время зажечь Факел!</span>
         © 2026, ЛФК «Факел» | Ростов-на-Дону
     </footer>
 
@@ -61,43 +60,51 @@
             document.body.style.overflow = document.body.style.overflow === 'hidden' ? 'auto' : 'hidden';
         }
 
+        // Страховочная база данных игроков
+        const fallbackPlayers = [
+            { name: "Лазарев Андрей", number: "1", category: "Вратари", image: "img/andrey.jpg", is_captain: false, birthdate: "05.04.2005", physique: "180 см / 85 кг", foot: "Правая", debut: "Март 2025", stats: "1 сухой матч" },
+            { name: "Гончаренко Сергей", number: "9", category: "Полузащитники", image: "img/sergey.jpg", is_captain: true, birthdate: "08.10.2006", physique: "191 см / 87 кг", foot: "Правая", debut: "С основания", stats: "71 гол" },
+            { name: "Тимонин Валерий", number: "7", category: "Нападающие", image: "img/valera.jpg", is_captain: false, birthdate: "26.03.2007", physique: "183 см / 72 кг", foot: "Обе", debut: "Сентябрь 2025", stats: "15 голов" }
+        ];
+
+        function renderPlayers(playersList) {
+            const container = document.getElementById('roster-container');
+            const categories = ["Вратари", "Защитники", "Полузащитники", "Нападающие"];
+            let html = '';
+
+            categories.forEach(category => {
+                const players = playersList.filter(p => p.category === category);
+                if (players.length > 0) {
+                    html += `<h2 class="category-title" data-aos="fade-right">${category.toUpperCase()}</h2>`;
+                    players.forEach(player => {
+                        const captainBadge = player.is_captain ? `<span class="captain-badge">Капитан</span>` : '';
+                        const roleDisplay = category === "Вратари" ? "Вратарь" : category === "Защитники" ? "Защитник" : category === "Полузащитники" ? "Полузащитник" : "Нападающий";
+                        
+                        html += `
+                        <article class="card-detail" data-aos="fade-up">
+                            <img src="${player.image}" onerror="this.src='img/logo.png'" alt="${player.name}">
+                            <div class="card-content">
+                                <h2 class="card-name">${player.name} ${captainBadge} <span class="number">№${player.number}</span></h2>
+                                <div class="info-grid">
+                                    <div class="info-item"><strong>Амплуа</strong> ${roleDisplay}</div>
+                                    <div class="info-item"><strong>Дата рождения</strong> ${player.birthdate}</div>
+                                    <div class="info-item"><strong>Рост/Вес</strong> ${player.physique}</div>
+                                    <div class="info-item"><strong>Рабочая нога</strong> ${player.foot}</div>
+                                    <div class="info-item"><strong>Дата дебюта</strong> ${player.debut}</div>
+                                    <div class="info-item info-full"><strong>Статистика</strong> ${player.stats}</div>
+                                </div>
+                            </div>
+                        </article>`;
+                    });
+                }
+            });
+            container.innerHTML = html;
+        }
+
         fetch('data/team.json')
             .then(res => res.json())
-            .then(data => {
-                const container = document.getElementById('roster-container');
-                const categories = ["Вратари", "Защитники", "Полузащитники", "Нападающие"];
-                let html = '';
-
-                categories.forEach(category => {
-                    const players = data.players.filter(p => p.category === category);
-                    if (players.length > 0) {
-                        html += `<h2 class="category-title" data-aos="fade-right">${category.toUpperCase()}</h2>`;
-                        players.forEach(player => {
-                            const captainBadge = player.is_captain ? `<span class="captain-badge">Капитан</span>` : '';
-                            const roleDisplay = category === "Вратари" ? "Вратарь" : category === "Защитники" ? "Защитник" : category === "Полузащитники" ? "Полузащитник" : "Нападающий";
-                            
-                            html += `
-                            <article class="card-detail" data-aos="fade-up">
-                                <img src="${player.image}" alt="${player.name}">
-                                <div class="card-content">
-                                    <h2 class="card-name">${player.name} ${captainBadge} <span class="number">№${player.number}</span></h2>
-                                    <div class="info-grid">
-                                        <div class="info-item"><strong>Амплуа</strong> ${roleDisplay}</div>
-                                        <div class="info-item"><strong>Дата рождения</strong> ${player.birthdate}</div>
-                                        <div class="info-item"><strong>Рост/Вес</strong> ${player.physique}</div>
-                                        <div class="info-item"><strong>Рабочая нога</strong> ${player.foot}</div>
-                                        <div class="info-item"><strong>Дата дебюта</strong> ${player.debut}</div>
-                                        <div class="info-item info-full"><strong>Статистика</strong> ${player.stats}</div>
-                                    </div>
-                                </div>
-                            </article>`;
-                        });
-                    }
-                });
-                container.innerHTML = html || '<p style="text-align:center;">Состав формируется.</p>';
-            }).catch(e => {
-                document.getElementById('roster-container').innerHTML = '<p style="text-align:center; color: var(--fire-main);">Ошибка загрузки состава.</p>';
-            });
+            .then(data => { if(data.players) renderPlayers(data.players); else renderPlayers(fallbackPlayers); })
+            .catch(e => { renderPlayers(fallbackPlayers); });
     </script>
 </body>
 </html>
