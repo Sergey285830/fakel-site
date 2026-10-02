@@ -11,15 +11,10 @@
 </head>
 <body>
 
-    <header id="top" data-aos="fade-down">
-        <a href="index.html"><img src="img/logo.png" alt="Логотип ЛФК Факел" class="logo"></a>
-        <h1 class="title">МАТЧ-ЦЕНТР</h1>
-    </header>
-
     <nav class="nav" data-aos="fade-in">
         <a href="index.html" title="На главную"><img src="img/logo.png" alt="Факел" class="nav-logo"></a>
         <div class="menu-btn" onclick="toggleMenu()">
-            <span class="hamburger-icon">☰</span> МЕНЮ
+            МЕНЮ <span class="hamburger-icon">☰</span>
         </div>
     </nav>
 
@@ -27,9 +22,9 @@
     <aside class="sidebar" id="sidebar">
         <div class="close-btn" onclick="toggleMenu()">×</div>
         <ul class="sidebar-menu">
-            <li style="text-align: center; margin-bottom: 20px;">
-                <a href="index.html" style="display: inline-block; padding: 0; border: none;">
-                    <img src="img/logo.png" style="width: 100px; border-radius: 12px; box-shadow: 0 0 15px rgba(0, 195, 255, 0.4);">
+            <li>
+                <a href="index.html">
+                    <img src="img/logo.png" class="menu-emblem" alt="Главная"> Главная
                 </a>
             </li>
             <div class="sidebar-title">Клуб</div>
@@ -44,9 +39,13 @@
         </ul>
     </aside>
 
+    <header id="top" data-aos="fade-down">
+        <h1 class="title">МАТЧ-ЦЕНТР</h1>
+    </header>
+
     <div class="container">
-        <h2 class="section-title" data-aos="fade-right">ТУРНИРНАЯ ТАБЛИЦА | ВЫСШАЯ ЛИГА</h2>
-        <div class="match-card" data-aos="fade-up" style="padding: 15px 20px; overflow-x: auto;">
+        <h2 class="section-title" data-aos="fade-right">ТУРНИРНАЯ ТАБЛИЦА</h2>
+        <div class="match-card" data-aos="fade-up" style="overflow-x: auto;">
             <table class="standings-table" id="standings-table">
                 <tr>
                     <th style="width: 30px;">#</th>
@@ -63,7 +62,7 @@
 
         <h2 class="section-title" data-aos="fade-right">ПОСЛЕДНИЕ РЕЗУЛЬТАТЫ</h2>
         <div class="match-card" data-aos="fade-up">
-            <div class="match-header" id="latest-header"></div>
+            <div class="match-header" id="latest-header">Загрузка...</div>
             <div class="match-scoreboard">
                 <div class="team" id="team1-name">-</div>
                 <div class="score" id="match-score">- : -</div>
@@ -77,7 +76,7 @@
         </div>
 
         <h2 class="section-title" data-aos="fade-right">ПРЕДСТОЯЩИЕ МАТЧИ</h2>
-        <div class="match-card" data-aos="fade-up" style="padding: 15px 25px;">
+        <div class="match-card" data-aos="fade-up">
             <table class="standings-table" id="upcoming-table">
                 <tr>
                     <th style="text-align:left; width: 40%;">Дата</th>
@@ -88,8 +87,8 @@
     </div>
 
     <footer>
-        <p>Время зажечь Факел!</p>
-        <p>© 2026, ЛФК «Факел» | Ростов-на-Дону</p>
+        <span>Время зажечь Факел!</span><br>
+        © 2026, ЛФК «Факел» | Ростов-на-Дону
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -102,7 +101,7 @@
         }
 
         fetch('data/standings.json')
-            .then(response => response.json())
+            .then(res => res.json())
             .then(data => {
                 const table = document.getElementById('standings-table');
                 data.teams.sort((a, b) => a.position - b.position);
@@ -114,10 +113,10 @@
                         <td>${team.losses}</td><td>${team.goals_diff}</td><td><strong>${team.points}</strong></td>
                     </tr>`;
                 });
-            });
+            }).catch(e => console.log('Данные таблицы не найдены'));
 
         fetch('data/latest_result.json')
-            .then(response => response.json())
+            .then(res => res.json())
             .then(data => {
                 document.getElementById('latest-header').innerHTML = `<span>${data.match_info}</span>`;
                 document.getElementById('team1-name').textContent = data.team1;
@@ -127,16 +126,16 @@
                 if(data.events1) data.events1.forEach(e => events1.innerHTML += `<div class="event">${e.event}</div>`);
                 const events2 = document.getElementById('team2-events');
                 if(data.events2) data.events2.forEach(e => events2.innerHTML += `<div class="event">${e.event}</div>`);
-            });
+            }).catch(e => console.log('Данные матча не найдены'));
 
         fetch('data/upcoming.json')
-            .then(response => response.json())
+            .then(res => res.json())
             .then(data => {
                 const table = document.getElementById('upcoming-table');
                 data.matches.forEach(match => {
                     table.innerHTML += `<tr><td style="text-align: left;">${match.date}</td><td style="text-align: left;"><strong>${match.title}</strong></td></tr>`;
                 });
-            });
+            }).catch(e => console.log('Данные расписания не найдены'));
     </script>
 </body>
 </html>
