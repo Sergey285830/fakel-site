@@ -11,15 +11,10 @@
 </head>
 <body>
 
-    <header id="top" data-aos="fade-down">
-        <a href="index.html"><img src="img/logo.png" alt="Логотип ЛФК Факел" class="logo"></a>
-        <h1 class="title">О КЛУБЕ</h1>
-    </header>
-
     <nav class="nav" data-aos="fade-in">
         <a href="index.html" title="На главную"><img src="img/logo.png" alt="Факел" class="nav-logo"></a>
         <div class="menu-btn" onclick="toggleMenu()">
-            <span class="hamburger-icon">☰</span> МЕНЮ
+            МЕНЮ <span class="hamburger-icon">☰</span>
         </div>
     </nav>
 
@@ -27,9 +22,9 @@
     <aside class="sidebar" id="sidebar">
         <div class="close-btn" onclick="toggleMenu()">×</div>
         <ul class="sidebar-menu">
-            <li style="text-align: center; margin-bottom: 20px;">
-                <a href="index.html" style="display: inline-block; padding: 0; border: none;">
-                    <img src="img/logo.png" style="width: 100px; border-radius: 12px; box-shadow: 0 0 15px rgba(0, 195, 255, 0.4);">
+            <li>
+                <a href="index.html">
+                    <img src="img/logo.png" class="menu-emblem" alt="Главная"> Главная
                 </a>
             </li>
             <div class="sidebar-title">Клуб</div>
@@ -44,24 +39,26 @@
         </ul>
     </aside>
 
+    <header id="top" data-aos="fade-down">
+        <h1 class="title">О КЛУБЕ</h1>
+    </header>
+
     <div class="container">
         <h2 class="section-title" data-aos="fade-right">ИСТОРИЯ</h2>
         <div class="content-card" data-aos="fade-up">
-            <h3>Как всё начиналось</h3>
-            <p>Любительский футбольный клуб «Факел» был создан инициативной группой игроков. Наша цель — развитие любительского футбола, участие в турнирах и создание сплоченной команды.</p>
-            <p>Мы регулярно тренируемся, участвуем в EVO Высшая лига и стремимся к высоким результатам.</p>
+            <p style="color: #fff; font-size: 16px;">Любительский футбольный клуб «Факел» был создан инициативной группой игроков. Наша цель — развитие любительского футбола, участие в турнирах и создание сплоченной команды.</p>
+            <p style="color: #cbd5e1; font-size: 16px;">Мы регулярно тренируемся, участвуем в EVO Высшая лига и стремимся к высоким результатам.</p>
         </div>
 
         <h2 class="section-title" data-aos="fade-right">НАША ФИЛОСОФИЯ</h2>
         <div class="content-card" data-aos="fade-up">
-            <h3>Больше, чем просто игра</h3>
-            <p>Для нас футбол — это страсть, дисциплина и уважение к соперникам. «Факел» объединяет людей разных возрастов и профессий одной любовью к спорту.</p>
+            <p style="color: #fff; font-size: 16px;">Для нас футбол — это страсть, дисциплина и уважение к соперникам. «Факел» объединяет людей разных возрастов и профессий одной любовью к спорту.</p>
         </div>
     </div>
 
     <footer>
-        <p>Время зажечь Факел!</p>
-        <p>© 2026, ЛФК «Факел» | Ростов-на-Дону</p>
+        <span>Время зажечь Факел!</span><br>
+        © 2026, ЛФК «Факел» | Ростов-на-Дону
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
