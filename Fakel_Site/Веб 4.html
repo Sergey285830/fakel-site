@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ЛФК «Факел» | Матч-центр</title>
     <link rel="icon" type="image/png" href="img/logo.png">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <nav class="nav" data-aos="fade-in">
-        <a href="index.html" title="На главную"><img src="img/logo.png" alt="Факел" class="nav-logo"></a>
         <div class="menu-btn" onclick="toggleMenu()">
             МЕНЮ <span class="hamburger-icon">☰</span>
         </div>
@@ -39,7 +38,7 @@
         </ul>
     </aside>
 
-    <header id="top" data-aos="fade-down">
+    <header id="top" data-aos="zoom-in" style="padding-bottom: 0;">
         <h1 class="title">МАТЧ-ЦЕНТР</h1>
     </header>
 
@@ -60,7 +59,7 @@
             </table>
         </div>
 
-        <h2 class="section-title" data-aos="fade-right">ПОСЛЕДНИЕ РЕЗУЛЬТАТЫ</h2>
+        <h2 class="section-title" data-aos="fade-right">ПОСЛЕДНИЙ МАТЧ</h2>
         <div class="match-card" data-aos="fade-up">
             <div class="match-header" id="latest-header">Загрузка...</div>
             <div class="match-scoreboard">
@@ -87,7 +86,7 @@
     </div>
 
     <footer>
-        <span>Время зажечь Факел!</span><br>
+        <span>Время зажечь Факел!</span>
         © 2026, ЛФК «Факел» | Ростов-на-Дону
     </footer>
 
@@ -100,42 +99,36 @@
             document.body.style.overflow = document.body.style.overflow === 'hidden' ? 'auto' : 'hidden';
         }
 
-        fetch('data/standings.json')
-            .then(res => res.json())
-            .then(data => {
-                const table = document.getElementById('standings-table');
-                data.teams.sort((a, b) => a.position - b.position);
-                data.teams.forEach(team => {
-                    const isFakel = team.name === 'Факел' ? 'class="fakel-row"' : '';
-                    table.innerHTML += `<tr ${isFakel}>
-                        <td>${team.position}</td><td class="team-cell">${team.name}</td>
-                        <td>${team.games}</td><td>${team.wins}</td><td>${team.draws}</td>
-                        <td>${team.losses}</td><td>${team.goals_diff}</td><td><strong>${team.points}</strong></td>
-                    </tr>`;
-                });
-            }).catch(e => console.log('Данные таблицы не найдены'));
+        fetch('data/standings.json').then(res => res.json()).then(data => {
+            const table = document.getElementById('standings-table');
+            data.teams.sort((a, b) => a.position - b.position);
+            data.teams.forEach(team => {
+                const isFakel = team.name === 'Факел' ? 'class="fakel-row"' : '';
+                table.innerHTML += `<tr ${isFakel}>
+                    <td>${team.position}</td><td class="team-cell">${team.name}</td>
+                    <td>${team.games}</td><td>${team.wins}</td><td>${team.draws}</td>
+                    <td>${team.losses}</td><td>${team.goals_diff}</td><td><strong>${team.points}</strong></td>
+                </tr>`;
+            });
+        });
 
-        fetch('data/latest_result.json')
-            .then(res => res.json())
-            .then(data => {
-                document.getElementById('latest-header').innerHTML = `<span>${data.match_info}</span>`;
-                document.getElementById('team1-name').textContent = data.team1;
-                document.getElementById('match-score').textContent = data.score;
-                document.getElementById('team2-name').textContent = data.team2;
-                const events1 = document.getElementById('team1-events');
-                if(data.events1) data.events1.forEach(e => events1.innerHTML += `<div class="event">${e.event}</div>`);
-                const events2 = document.getElementById('team2-events');
-                if(data.events2) data.events2.forEach(e => events2.innerHTML += `<div class="event">${e.event}</div>`);
-            }).catch(e => console.log('Данные матча не найдены'));
+        fetch('data/latest_result.json').then(res => res.json()).then(data => {
+            document.getElementById('latest-header').innerHTML = `<span>${data.match_info}</span>`;
+            document.getElementById('team1-name').textContent = data.team1;
+            document.getElementById('match-score').textContent = data.score;
+            document.getElementById('team2-name').textContent = data.team2;
+            const events1 = document.getElementById('team1-events');
+            if(data.events1) data.events1.forEach(e => events1.innerHTML += `<div class="event">${e.event}</div>`);
+            const events2 = document.getElementById('team2-events');
+            if(data.events2) data.events2.forEach(e => events2.innerHTML += `<div class="event">${e.event}</div>`);
+        });
 
-        fetch('data/upcoming.json')
-            .then(res => res.json())
-            .then(data => {
-                const table = document.getElementById('upcoming-table');
-                data.matches.forEach(match => {
-                    table.innerHTML += `<tr><td style="text-align: left;">${match.date}</td><td style="text-align: left;"><strong>${match.title}</strong></td></tr>`;
-                });
-            }).catch(e => console.log('Данные расписания не найдены'));
+        fetch('data/upcoming.json').then(res => res.json()).then(data => {
+            const table = document.getElementById('upcoming-table');
+            data.matches.forEach(match => {
+                table.innerHTML += `<tr><td style="text-align: left;">${match.date}</td><td style="text-align: left;"><strong>${match.title}</strong></td></tr>`;
+            });
+        });
     </script>
 </body>
 </html>
