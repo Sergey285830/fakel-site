@@ -8,20 +8,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <!-- Подключение API ВКонтакте -->
     <script src="https://vk.com/js/api/openapi.js?169" type="text/javascript"></script>
 </head>
 <body>
 
-    <header id="top" data-aos="fade-down">
-        <a href="index.html"><img src="img/logo.png" alt="Логотип ЛФК Факел" class="logo"></a>
-        <h1 class="title">ЛФК <span>«Факел»</span></h1>
-        <p class="subtitle">ОФИЦИАЛЬНЫЙ САЙТ</p>
-    </header>
-
     <nav class="nav" data-aos="fade-in">
+        <!-- Логотип слева для перехода на главную -->
         <a href="index.html" title="На главную"><img src="img/logo.png" alt="Факел" class="nav-logo"></a>
+        <!-- Кнопка меню справа -->
         <div class="menu-btn" onclick="toggleMenu()">
-            <span class="hamburger-icon">☰</span> МЕНЮ
+            МЕНЮ <span class="hamburger-icon">☰</span>
         </div>
     </nav>
 
@@ -29,9 +26,10 @@
     <aside class="sidebar" id="sidebar">
         <div class="close-btn" onclick="toggleMenu()">×</div>
         <ul class="sidebar-menu">
-            <li style="text-align: center; margin-bottom: 20px;">
-                <a href="index.html" style="display: inline-block; padding: 0; border: none;">
-                    <img src="img/logo.png" style="width: 100px; border-radius: 12px; box-shadow: 0 0 15px rgba(0, 195, 255, 0.4);">
+            <!-- Эмблема как первый пункт меню -->
+            <li>
+                <a href="index.html" class="active">
+                    <img src="img/logo.png" class="menu-emblem" alt="Главная"> Главная
                 </a>
             </li>
             <div class="sidebar-title">Клуб</div>
@@ -46,26 +44,31 @@
         </ul>
     </aside>
 
+    <header id="top" data-aos="fade-down">
+        <h1 class="title">ЛФК <span>«Факел»</span></h1>
+        <p class="subtitle">ОФИЦИАЛЬНЫЙ САЙТ</p>
+    </header>
+
     <div class="container">
         <div class="news-feed-section">
-            <h2 class="section-title" data-aos="fade-right" style="justify-content: center; margin-bottom: 30px;">СВЕЖИЕ НОВОСТИ</h2>
+            <h2 class="section-title" data-aos="fade-right">СВЕЖИЕ НОВОСТИ</h2>
             <div id="unified-feed">
-                <!-- 3 свежих поста загрузятся сюда -->
+                <p style="text-align: center; color: var(--neon-blue);">Загрузка новостей...</p>
             </div>
         </div>
     </div>
 
-    <!-- Раздел для старых постов -->
+    <!-- Горизонтальная лента для старых постов -->
     <div id="archive-section" style="display: none; max-width: 1000px; margin: 0 auto; padding: 0 10px;">
         <h2 class="archive-title">ПРЕДЫДУЩИЕ ЗАПИСИ</h2>
         <div class="archive-slider" id="archive-feed">
-            <!-- Карусель старых постов загрузится сюда -->
+            <!-- Архив загрузится сюда -->
         </div>
     </div>
 
     <footer>
-        <p>Время зажечь Факел!</p>
-        <p>© 2026, ЛФК «Факел» | Ростов-на-Дону</p>
+        <span>Время зажечь Факел!</span><br>
+        © 2026, ЛФК «Факел» | Ростов-на-Дону
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -77,46 +80,67 @@
             document.body.style.overflow = document.body.style.overflow === 'hidden' ? 'auto' : 'hidden';
         }
 
+        // ==========================================
+        // БРОНЕБОЙНАЯ ЗАГРУЗКА НОВОСТЕЙ
+        // ==========================================
+        
         let allPosts = [];
         const VK_GROUP_ID = '-227517599'; 
         const VK_TOKEN = 'ТВОЙ_СЕРВИСНЫЙ_КЛЮЧ_ВК'; // ВСТАВЬ КЛЮЧ СЮДА
 
-        fetch('data/news.json')
-            .then(res => res.json())
-            .then(data => {
-                if (data.posts) {
-                    const cmsPosts = data.posts.map(p => ({
-                        type: 'cms', title: p.title, body: p.body, image: p.image,
-                        dateStr: p.date, timestamp: parseDate(p.date)
-                    }));
-                    allPosts.push(...cmsPosts);
-                    renderFeed();
-                }
-            });
-
-        const script = document.createElement('script');
-        script.src = `https://api.vk.com/method/wall.get?owner_id=${VK_GROUP_ID}&count=15&access_token=${VK_TOKEN}&v=5.131&callback=processVKPosts`;
-        document.body.appendChild(script);
-
-        function processVKPosts(response) {
-            if(response && response.response && response.response.items) {
-                const vkPosts = response.response.items.map(p => {
-                    let imgUrl = '';
-                    if(p.attachments) {
-                        const photoAtt = p.attachments.find(a => a.type === 'photo');
-                        if(photoAtt) { imgUrl = photoAtt.photo.sizes[photoAtt.photo.sizes.length - 1].url; }
+        // 1. Функция загрузки из Админки (CMS)
+        function fetchCMS() {
+            return fetch('data/news.json')
+                .then(res => res.json())
+                .then(data => {
+                    if (data.posts) {
+                        const cmsPosts = data.posts.map(p => ({
+                            type: 'cms', title: p.title, body: p.body, image: p.image,
+                            dateStr: p.date, timestamp: parseDate(p.date)
+                        }));
+                        allPosts.push(...cmsPosts);
                     }
-                    return {
-                        type: 'vk', title: 'ВКонтакте', body: p.text, image: imgUrl,
-                        dateStr: new Date(p.date * 1000).toLocaleDateString('ru-RU'),
-                        timestamp: p.date * 1000, link: `https://vk.com/wall${VK_GROUP_ID}_${p.id}`
-                    };
-                });
-                allPosts.push(...vkPosts);
-                renderFeed();
-            }
+                }).catch(e => console.log('Нет новостей CMS или ошибка файла.'));
         }
 
+        // 2. Функция загрузки из ВКонтакте
+        function fetchVK() {
+            return new Promise((resolve) => {
+                window.processVKPosts = function(response) {
+                    if(response && response.response && response.response.items) {
+                        const vkPosts = response.response.items.map(p => {
+                            let imgUrl = '';
+                            if(p.attachments) {
+                                const photoAtt = p.attachments.find(a => a.type === 'photo');
+                                if(photoAtt) { imgUrl = photoAtt.photo.sizes[photoAtt.photo.sizes.length - 1].url; }
+                            }
+                            return {
+                                type: 'vk', title: 'ВКонтакте', body: p.text, image: imgUrl,
+                                dateStr: new Date(p.date * 1000).toLocaleDateString('ru-RU'),
+                                timestamp: p.date * 1000, link: `https://vk.com/wall${VK_GROUP_ID}_${p.id}`
+                            };
+                        });
+                        allPosts.push(...vkPosts);
+                    }
+                    resolve();
+                };
+                
+                const script = document.createElement('script');
+                script.src = `https://api.vk.com/method/wall.get?owner_id=${VK_GROUP_ID}&count=15&access_token=${VK_TOKEN}&v=5.131&callback=processVKPosts`;
+                script.onerror = () => resolve(); // Если скрипт блокируется рекламорезкой
+                document.body.appendChild(script);
+                
+                // Таймаут безопасности: если ВК завис на 3 секунды, идём дальше без него
+                setTimeout(resolve, 3000);
+            });
+        }
+
+        // Запускаем обе загрузки параллельно и ждем завершения
+        Promise.allSettled([fetchCMS(), fetchVK()]).then(() => {
+            renderFeed();
+        });
+
+        // Парсер даты
         function parseDate(dateStr) {
             if(!dateStr) return 0;
             const parts = dateStr.split('.');
@@ -124,20 +148,26 @@
             return Date.now();
         }
 
+        // Отрисовка
         function renderFeed() {
-            allPosts.sort((a, b) => b.timestamp - a.timestamp);
-            
             const mainContainer = document.getElementById('unified-feed');
             const archiveContainer = document.getElementById('archive-feed');
             mainContainer.innerHTML = ''; archiveContainer.innerHTML = '';
+
+            if (allPosts.length === 0) {
+                mainContainer.innerHTML = `<div class="cms-news-card"><h3 class="cms-news-title" style="text-align:center;">Новостей пока нет</h3></div>`;
+                return;
+            }
+
+            allPosts.sort((a, b) => b.timestamp - a.timestamp);
             
-            const topPosts = allPosts.slice(0, 3); // 3 поста на главную
-            const olderPosts = allPosts.slice(3); // Остальные в архив
-            
+            const topPosts = allPosts.slice(0, 3); // Первые 3 поста
+            const olderPosts = allPosts.slice(3); // Остальные
+
             topPosts.forEach(post => {
                 const imgHtml = post.image ? `<img src="${post.image}" alt="">` : '';
-                const titleStyle = post.type === 'vk' ? `style="color: #0077FF;"` : ``;
-                const vkBtn = post.type === 'vk' ? `<br><a href="${post.link}" target="_blank" class="vk-link">Открыть в ВК →</a>` : '';
+                const titleStyle = post.type === 'vk' ? `style="color: var(--neon-blue);"` : ``;
+                const vkBtn = post.type === 'vk' ? `<br><a href="${post.link}" target="_blank" class="vk-link">Открыть в ВК</a>` : '';
                 const cleanBody = post.body.replace(/<[^>]*>?/gm, '');
 
                 mainContainer.innerHTML += `
@@ -154,8 +184,8 @@
                 document.getElementById('archive-section').style.display = 'block';
                 olderPosts.forEach(post => {
                     const imgHtml = post.image ? `<img src="${post.image}" alt="">` : '';
-                    const titleStyle = post.type === 'vk' ? `style="color: #0077FF;"` : ``;
-                    const vkBtn = post.type === 'vk' ? `<a href="${post.link}" target="_blank" class="vk-link" style="margin-top:auto;">В ВК →</a>` : '';
+                    const titleStyle = post.type === 'vk' ? `style="color: var(--neon-blue); font-size: 16px;"` : ``;
+                    const vkBtn = post.type === 'vk' ? `<a href="${post.link}" target="_blank" class="vk-link" style="margin-top:auto; padding: 6px 10px;">В ВК</a>` : '';
                     const cleanBody = post.body.replace(/<[^>]*>?/gm, '');
                     
                     archiveContainer.innerHTML += `
