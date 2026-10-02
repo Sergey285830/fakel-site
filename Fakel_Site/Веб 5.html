@@ -4,24 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ЛФК «Факел» | Партнерам</title>
-    
     <link rel="icon" type="image/png" href="img/logo.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
-    <!-- Подключение дизайна -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header id="top" data-aos="fade-down" data-aos-duration="1000">
-        <img src="img/logo.png" alt="Логотип ЛФК Факел" class="logo">
+    <header id="top" data-aos="fade-down">
+        <a href="index.html"><img src="img/logo.png" alt="Логотип ЛФК Факел" class="logo"></a>
         <h1 class="title">ПАРТНЕРАМ</h1>
     </header>
 
     <nav class="nav" data-aos="fade-in">
+        <a href="index.html" title="На главную"><img src="img/logo.png" alt="Факел" class="nav-logo"></a>
         <div class="menu-btn" onclick="toggleMenu()">
             <span class="hamburger-icon">☰</span> МЕНЮ
         </div>
@@ -31,7 +27,11 @@
     <aside class="sidebar" id="sidebar">
         <div class="close-btn" onclick="toggleMenu()">×</div>
         <ul class="sidebar-menu">
-            <li><a href="index.html">Главная</a></li>
+            <li style="text-align: center; margin-bottom: 20px;">
+                <a href="index.html" style="display: inline-block; padding: 0; border: none;">
+                    <img src="img/logo.png" style="width: 100px; border-radius: 12px; box-shadow: 0 0 15px rgba(0, 195, 255, 0.4);">
+                </a>
+            </li>
             <div class="sidebar-title">Клуб</div>
             <li><a href="about.html">О клубе</a></li>
             <li><a href="Веб 2.html">Команда</a></li>
@@ -48,22 +48,15 @@
         <h2 class="section-title" data-aos="fade-right">СОТРУДНИЧЕСТВО</h2>
         <div class="partner-card" data-aos="fade-up">
             <h3>Поддержите ЛФК «Факел»</h3>
-            <p>Мы открыты для сотрудничества со спонсорами и партнерами. Поддерживая нашу команду, вы вносите вклад в развитие любительского спорта в Ростове-на-Дону.</p>
-            
-            <h4 style="color: var(--brand-blue); font-family: 'Oswald', sans-serif; font-size: 20px; margin-top: 30px;">Что мы предлагаем:</h4>
-            <ul class="benefits-list">
-                <li>Размещение логотипа вашей компании на игровой форме команды.</li>
-                <li>Упоминание спонсора в социальных сетях (ВКонтакте) и на официальном сайте.</li>
-                <li>Рекламная интеграция в предматчевых анонсах и обзорах игр.</li>
-                <li>Позитивный имидж компании, поддерживающей здоровый образ жизни.</li>
+            <p>Мы открыты для сотрудничества со спонсорами и партнерами. Поддерживая команду, вы развиваете любительский спорт в Ростове.</p>
+            <ul class="benefits-list" style="margin-top: 20px;">
+                <li>Размещение логотипа на форме.</li>
+                <li>Упоминание спонсора в социальных сетях и на сайте.</li>
+                <li>Рекламная интеграция в предматчевых анонсах.</li>
             </ul>
         </div>
-
-        <div class="contact-block" data-aos="fade-up">
-            <h4>СВЯЗАТЬСЯ С НАМИ</h4>
-            <p>По вопросам сотрудничества обращайтесь в личные сообщения нашего официального сообщества ВКонтакте или по электронной почте.</p>
-            <!-- Ссылка на ВК Факела -->
-            <a href="https://vk.com/footballclubfakel161" target="_blank" style="display: inline-block; margin-top: 15px; padding: 12px 30px; background: var(--brand-blue); color: #fff; text-decoration: none; border-radius: 8px; font-weight: 600; text-transform: uppercase; font-size: 14px; letter-spacing: 1px;">Написать ВКонтакте</a>
+        <div style="text-align: center; margin-top: 40px;" data-aos="fade-up">
+            <a href="https://vk.com/footballclubfakel161" target="_blank" style="padding: 15px 40px; background: var(--brand-blue); color: #fff; text-decoration: none; border-radius: 8px; font-weight: 700; text-transform: uppercase;">Написать ВКонтакте</a>
         </div>
     </div>
 
@@ -74,7 +67,7 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ once: true, offset: 100 });
+        AOS.init({ once: true, offset: 50 });
         function toggleMenu() {
             document.getElementById('sidebar').classList.toggle('active');
             document.getElementById('overlay').classList.toggle('active');
