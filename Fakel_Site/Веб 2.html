@@ -4,23 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ЛФК «Факел» | Команда</title>
-    
     <link rel="icon" type="image/png" href="img/logo.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
-    <!-- Подключение дизайна -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header id="top" data-aos="fade-down" data-aos-duration="1000">
-        <img src="img/logo.png" alt="Логотип ЛФК Факел" class="logo">
+    <header id="top" data-aos="fade-down">
+        <a href="index.html"><img src="img/logo.png" alt="Логотип ЛФК Факел" class="logo"></a>
         <h1 class="title">КОМАНДА</h1>
     </header>
 
     <nav class="nav" data-aos="fade-in">
+        <a href="index.html" title="На главную"><img src="img/logo.png" alt="Факел" class="nav-logo"></a>
         <div class="menu-btn" onclick="toggleMenu()">
             <span class="hamburger-icon">☰</span> МЕНЮ
         </div>
@@ -30,7 +26,11 @@
     <aside class="sidebar" id="sidebar">
         <div class="close-btn" onclick="toggleMenu()">×</div>
         <ul class="sidebar-menu">
-            <li><a href="index.html">Главная</a></li>
+            <li style="text-align: center; margin-bottom: 20px;">
+                <a href="index.html" style="display: inline-block; padding: 0; border: none;">
+                    <img src="img/logo.png" style="width: 100px; border-radius: 12px; box-shadow: 0 0 15px rgba(0, 195, 255, 0.4);">
+                </a>
+            </li>
             <div class="sidebar-title">Клуб</div>
             <li><a href="about.html">О клубе</a></li>
             <li><a href="Веб 2.html" class="active">Команда</a></li>
@@ -44,7 +44,7 @@
     </aside>
 
     <div class="container" id="roster-container">
-        <!-- Карточки игроков будут загружаться скриптом из файла data/team.json -->
+        <!-- Загрузится скриптом -->
     </div>
 
     <footer>
@@ -54,27 +54,25 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ once: true, offset: 100 });
+        AOS.init({ once: true, offset: 50 });
         function toggleMenu() {
             document.getElementById('sidebar').classList.toggle('active');
             document.getElementById('overlay').classList.toggle('active');
             document.body.style.overflow = document.body.style.overflow === 'hidden' ? 'auto' : 'hidden';
         }
 
-        // Загрузка состава команды из CMS
         fetch('data/team.json')
-            .then(response => response.json())
+            .then(res => res.json())
             .then(data => {
                 const container = document.getElementById('roster-container');
                 const categories = ["Вратари", "Защитники", "Полузащитники", "Нападающие"];
                 let html = '';
 
                 categories.forEach(category => {
-                    const playersInCategory = data.players.filter(p => p.category === category);
-                    if (playersInCategory.length > 0) {
+                    const players = data.players.filter(p => p.category === category);
+                    if (players.length > 0) {
                         html += `<h2 class="category-title" data-aos="fade-right">${category.toUpperCase()}</h2>`;
-                        
-                        playersInCategory.forEach(player => {
+                        players.forEach(player => {
                             const captainBadge = player.is_captain ? `<span class="captain-badge">Капитан</span>` : '';
                             const roleDisplay = category === "Вратари" ? "Вратарь" : category === "Защитники" ? "Защитник" : category === "Полузащитники" ? "Полузащитник" : "Нападающий";
                             
@@ -86,7 +84,7 @@
                                     <div class="info-grid">
                                         <div class="info-item"><strong>Амплуа</strong> ${roleDisplay}</div>
                                         <div class="info-item"><strong>Дата рождения</strong> ${player.birthdate}</div>
-                                        <div class="info-item"><strong>Рост / Вес</strong> ${player.physique}</div>
+                                        <div class="info-item"><strong>Рост/Вес</strong> ${player.physique}</div>
                                         <div class="info-item"><strong>Рабочая нога</strong> ${player.foot}</div>
                                         <div class="info-item"><strong>Дата дебюта</strong> ${player.debut}</div>
                                         <div class="info-item info-full"><strong>Статистика</strong> ${player.stats}</div>
@@ -97,8 +95,7 @@
                     }
                 });
                 container.innerHTML = html;
-            })
-            .catch(error => console.error('Ошибка загрузки состава:', error));
+            });
     </script>
 </body>
 </html>
