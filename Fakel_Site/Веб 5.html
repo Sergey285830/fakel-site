@@ -11,15 +11,10 @@
 </head>
 <body>
 
-    <header id="top" data-aos="fade-down">
-        <a href="index.html"><img src="img/logo.png" alt="Логотип ЛФК Факел" class="logo"></a>
-        <h1 class="title">ПАРТНЕРАМ</h1>
-    </header>
-
     <nav class="nav" data-aos="fade-in">
         <a href="index.html" title="На главную"><img src="img/logo.png" alt="Факел" class="nav-logo"></a>
         <div class="menu-btn" onclick="toggleMenu()">
-            <span class="hamburger-icon">☰</span> МЕНЮ
+            МЕНЮ <span class="hamburger-icon">☰</span>
         </div>
     </nav>
 
@@ -27,9 +22,9 @@
     <aside class="sidebar" id="sidebar">
         <div class="close-btn" onclick="toggleMenu()">×</div>
         <ul class="sidebar-menu">
-            <li style="text-align: center; margin-bottom: 20px;">
-                <a href="index.html" style="display: inline-block; padding: 0; border: none;">
-                    <img src="img/logo.png" style="width: 100px; border-radius: 12px; box-shadow: 0 0 15px rgba(0, 195, 255, 0.4);">
+            <li>
+                <a href="index.html">
+                    <img src="img/logo.png" class="menu-emblem" alt="Главная"> Главная
                 </a>
             </li>
             <div class="sidebar-title">Клуб</div>
@@ -44,25 +39,28 @@
         </ul>
     </aside>
 
+    <header id="top" data-aos="fade-down">
+        <h1 class="title">ПАРТНЕРАМ</h1>
+    </header>
+
     <div class="container">
         <h2 class="section-title" data-aos="fade-right">СОТРУДНИЧЕСТВО</h2>
         <div class="partner-card" data-aos="fade-up">
-            <h3>Поддержите ЛФК «Факел»</h3>
-            <p>Мы открыты для сотрудничества со спонсорами и партнерами. Поддерживая команду, вы развиваете любительский спорт в Ростове.</p>
-            <ul class="benefits-list" style="margin-top: 20px;">
+            <p style="color: #fff; font-size: 16px;">Мы открыты для сотрудничества со спонсорами и партнерами. Поддерживая команду, вы развиваете любительский спорт в Ростове.</p>
+            <ul style="color: var(--neon-blue); line-height: 2; font-size: 15px; margin-top: 20px;">
                 <li>Размещение логотипа на форме.</li>
                 <li>Упоминание спонсора в социальных сетях и на сайте.</li>
                 <li>Рекламная интеграция в предматчевых анонсах.</li>
             </ul>
         </div>
         <div style="text-align: center; margin-top: 40px;" data-aos="fade-up">
-            <a href="https://vk.com/footballclubfakel161" target="_blank" style="padding: 15px 40px; background: var(--brand-blue); color: #fff; text-decoration: none; border-radius: 8px; font-weight: 700; text-transform: uppercase;">Написать ВКонтакте</a>
+            <a href="https://vk.com/footballclubfakel161" target="_blank" class="vk-link" style="padding: 15px 40px; font-size: 16px;">Написать ВКонтакте</a>
         </div>
     </div>
 
     <footer>
-        <p>Время зажечь Факел!</p>
-        <p>© 2026, ЛФК «Факел» | Ростов-на-Дону</p>
+        <span>Время зажечь Факел!</span><br>
+        © 2026, ЛФК «Факел» | Ростов-на-Дону
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
