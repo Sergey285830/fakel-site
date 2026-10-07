@@ -13,26 +13,32 @@
 
 html { scroll-behavior: smooth; font-family: 'Montserrat', sans-serif; background-color: var(--bg-page); overflow-x: hidden; }
 
-/* Светлый фон с огненными и синими засветами + Логотипы по бокам */
+/* Светлый фон с огненными и синими свечениями по углам */
 body { 
+    background-color: var(--bg-page);
     background-image: 
-        radial-gradient(circle at 90% 10%, rgba(255, 69, 0, 0.15) 0%, transparent 40%),
-        radial-gradient(circle at 10% 90%, rgba(0, 195, 255, 0.15) 0%, transparent 40%),
-        url('img/logo.png?v=2'), 
-        url('img/logo.png?v=2');
-    background-position: center, center, -15vw 10vh, 105vw 70vh;
-    background-size: cover, cover, 600px, 700px;
-    background-repeat: no-repeat;
+        radial-gradient(circle at 90% 10%, rgba(255, 69, 0, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 10% 90%, rgba(0, 195, 255, 0.15) 0%, transparent 60%);
     background-attachment: fixed;
     color: var(--text-dark); 
     margin: 0; padding: 0; line-height: 1.6; 
     min-height: 100vh;
 }
 
-/* Эффект матового стекла, чтобы размыть логотипы на фоне */
+/* ОГРОМНЫЙ ПОЛУПРОЗРАЧНЫЙ ЛОГОТИП ПО ЦЕНТРУ НА ВЕСЬ ЭКРАН */
 body::before {
-    content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(248, 250, 252, 0.85); backdrop-filter: blur(12px); z-index: -2;
+    content: ''; 
+    position: fixed; 
+    top: 50%; left: 50%; 
+    transform: translate(-50%, -50%);
+    width: 100vw; height: 100vh;
+    background-image: url('img/logo.png?v=2');
+    background-position: center center;
+    background-size: 80vmin; /* Огромный, адаптируется под размер экрана */
+    background-repeat: no-repeat;
+    opacity: 0.05; /* Едва заметный, стильный водяной знак */
+    z-index: -2;
+    pointer-events: none;
 }
 
 /* АНИМАЦИЯ: Плавающие огненные искры на фоне */
@@ -45,14 +51,14 @@ body::after {
         radial-gradient(circle at 70% 90%, rgba(255, 69, 0, 0.5) 0px, transparent 4px);
     background-size: 150vw 150vh;
     z-index: -1;
-    opacity: 0.7;
-    animation: sparks 12s linear infinite alternate;
+    opacity: 0.6;
+    animation: sparks 15s linear infinite alternate;
     pointer-events: none;
 }
 @keyframes sparks {
-    0% { transform: translateY(0) scale(1); opacity: 0.4; }
-    50% { transform: translateY(-30px) scale(1.1); opacity: 0.8; }
-    100% { transform: translateY(0) scale(1); opacity: 0.4; }
+    0% { transform: translateY(0) scale(1); opacity: 0.3; }
+    50% { transform: translateY(-40px) scale(1.2); opacity: 0.8; }
+    100% { transform: translateY(0) scale(1); opacity: 0.3; }
 }
 
 h1, h2, h3, .menu-btn, .sidebar-menu a, .team, .card-name { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
@@ -75,7 +81,7 @@ header { text-align: center; padding: 60px 20px 30px; position: relative; z-inde
 .nav { 
     display: flex; justify-content: flex-start; align-items: center; 
     padding: 15px 40px; background: rgba(255,255,255,0.95); 
-    position: sticky; top: 0; z-index: 100;
+    position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px);
     border-bottom: 3px solid var(--brand-light); 
     box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
 }
@@ -111,6 +117,7 @@ header { text-align: center; padding: 60px 20px 30px; position: relative; z-inde
     border-bottom: 4px solid var(--brand-blue);
     box-shadow: 0 20px 40px rgba(11, 29, 58, 0.06); 
     transition: 0.3s;
+    backdrop-filter: blur(10px);
 }
 .card-detail:hover, .match-card:hover, .cms-news-card:hover, .archive-card:hover { 
     transform: translateY(-8px); 
@@ -171,24 +178,4 @@ header { text-align: center; padding: 60px 20px 30px; position: relative; z-inde
 .captain-badge { background: linear-gradient(90deg, var(--fire-main), var(--fire-yellow)); color: #fff; font-size: 14px; font-weight: 800; padding: 6px 16px; border-radius: 8px; letter-spacing: 2px; box-shadow: 0 5px 15px rgba(255, 69, 0, 0.4); }
 .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .info-item { font-size: 17px; color: var(--text-dark); font-weight: 700; }
-.info-item strong { display: block; font-size: 13px; text-transform: uppercase; letter-spacing: 3px; color: var(--brand-light); margin-bottom: 5px; }
-.info-full { grid-column: 1 / -1; margin-top: 15px; padding-top: 20px; border-top: 2px dashed rgba(0, 195, 255, 0.2); }
-.info-full strong { color: var(--fire-main); font-size: 15px; }
-
-footer { text-align: center; padding: 60px 20px; color: #fff; background: var(--brand-blue); font-size: 16px; margin-top: 80px; position: relative; z-index: 2; border-top: 8px solid var(--brand-light);}
-footer span { color: var(--fire-yellow); font-weight: 800; text-transform: uppercase; letter-spacing: 4px; font-size: 22px; display: block; margin-bottom: 15px;}
-
-@media (max-width: 768px) { 
-    .match-scoreboard { grid-template-columns: 1fr; gap: 10px; } 
-    .match-events-grid { grid-template-columns: 1fr; gap: 15px; text-align: center; }
-    .team-events.left, .team-events.right { align-items: center; text-align: center; }
-    .event-spacer { display: none; }
-    .standings-table { font-size: 14px; }
-    .standings-table th, .standings-table td { padding: 12px 5px; }
-    .card-detail { flex-direction: column; align-items: center; padding: 25px; gap: 25px; text-align: center; }
-    .card-detail img { width: 100%; max-width: 280px; height: auto; }
-    .card-name { font-size: 32px; justify-content: center; }
-    .info-grid { grid-template-columns: 1fr; gap: 15px; text-align: center; width: 100%; }
-    .huge-logo { width: 260px; }
-    .title { font-size: 46px; }
-}
+.info-item strong { display: block; font-size: 13px; text-
