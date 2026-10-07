@@ -70,7 +70,7 @@
             </div>
         </div>
 
-        <h2 class="section-title" data-aos="fade-right">ПРЕДСТОЯЩИЕ МАТЧИ</h2>
+        <h2 class="section-title" data-aos="fade-right">БЛИЖАЙШИЕ МАТЧИ</h2>
         <div class="match-card" data-aos="fade-up">
             <table class="standings-table" id="upcoming-table">
                 <tr>
@@ -83,7 +83,7 @@
 
     <footer>
         <span>ВРЕМЯ ЗАЖЕЧЬ ФАКЕЛ!</span>
-        © 2026, ЛФК «Факел» | Ростов-на-Дону
+        <p>© 2026, ЛФК «Факел» | Ростов-на-Дону</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -115,16 +115,14 @@
                 "events1": [{ "event": "Игроки Виртуоза (5 голов)" }],
                 "events2": [
                     { "event": "С. Гончаренко (⚽⚽⚽)" },
-                    { "event": "В. Тимонин (⚽⚽)" },
-                    { "event": "Н. Закатин (⚽)" },
-                    { "event": "В. Иутинский (⚽)" }
+                    { "event": "В. Тимонин (⚽⚽⚽)" },
+                    { "event": "Д. Степкин (⚽)" }
                 ]
             },
             upcoming: [
                 { "date": "10 октября (6 тур)", "title": "Факел — ФК Рассвет" },
-                { "date": "10 октября (6 тур)", "title": "FC Soroka — The Smash" },
-                { "date": "10 октября (6 тур)", "title": "Виртуоз — ZaDrots" },
-                { "date": "10 октября (6 тур)", "title": "АКД — ФК Батайск" }
+                { "date": "17 октября (7 тур)", "title": "The Smash — Факел" },
+                { "date": "24 октября (8 тур)", "title": "Факел — ФК Батайск" }
             ]
         };
 
@@ -149,7 +147,7 @@
         const events2 = document.getElementById('team2-events');
         matchData.latest.events2.forEach(e => events2.innerHTML += `<div class="event">${e.event}</div>`);
 
-        // Отрисовка будущих матчей
+        // Отрисовка будущих матчей (Только Факел)
         const upTable = document.getElementById('upcoming-table');
         matchData.upcoming.forEach(match => {
             upTable.innerHTML += `<tr><td style="text-align: left;">${match.date}</td><td style="text-align: left; font-weight: 800; color: var(--brand-blue);">${match.title}</td></tr>`;
