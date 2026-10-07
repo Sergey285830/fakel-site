@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ЛФК «Факел» | Официальный сайт</title>
-    <link rel="icon" type="image/png" href="img/logo.png">
+    <link rel="icon" type="image/png" href="img/logo.png?v=2">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Oswald:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -22,14 +22,13 @@
     <aside class="sidebar" id="sidebar">
         <div class="close-btn" onclick="toggleMenu()">×</div>
         <ul class="sidebar-menu">
-            <li><a href="index.html" class="active"><img src="img/logo.png" class="menu-emblem" alt="Главная"> Главная</a></li>
+            <li><a href="index.html" class="active"><img src="img/logo.png?v=2" class="menu-emblem" alt="Главная"> Главная</a></li>
             <div class="sidebar-title">Клуб</div>
             <li><a href="about.html">О клубе</a></li>
             <li><a href="Веб 2.html">Команда</a></li>
             <div class="sidebar-title">Турнир</div>
             <li><a href="Веб 4.html">Матч-центр</a></li>
             <div class="sidebar-title">Медиа и Партнеры</div>
-            <!-- ССЫЛКИ НА ВК -->
             <li><a href="https://vk.ru/footballclubfakel161" target="_blank">Трансляции</a></li>
             <li><a href="https://vk.ru/albums-227517599" target="_blank">Медиа</a></li>
             <li><a href="Веб 5.html">Партнерам</a></li>
@@ -37,7 +36,7 @@
     </aside>
 
     <header id="top" data-aos="zoom-in">
-        <img src="img/logo.png" alt="Логотип ЛФК Факел" class="huge-logo">
+        <img src="img/logo.png?v=2" alt="Логотип ЛФК Факел" class="huge-logo">
         <h1 class="title">ЛФК <span>«ФАКЕЛ»</span></h1>
         <p class="subtitle">ОФИЦИАЛЬНЫЙ САЙТ</p>
     </header>
@@ -93,7 +92,7 @@
                 window.processVKPosts = function(response) {
                     if (response && response.error) {
                         document.getElementById('vk-error').style.display = 'block';
-                        document.getElementById('vk-error').innerHTML = `Ошибка доступа ВКонтакте: ${response.error.error_msg}`;
+                        document.getElementById('vk-error').innerHTML = `Ошибка ВК: ${response.error.error_msg}`;
                         resolve(); return;
                     }
                     if(response && response.response && response.response.items) {
