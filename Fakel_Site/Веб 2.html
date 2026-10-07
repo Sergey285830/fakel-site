@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ЛФК «Факел» | Команда</title>
-    <link rel="icon" type="image/png" href="img/logo.png">
+    <link rel="icon" type="image/png" href="img/logo.png?v=2">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Oswald:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -21,7 +21,7 @@
     <aside class="sidebar" id="sidebar">
         <div class="close-btn" onclick="toggleMenu()">×</div>
         <ul class="sidebar-menu">
-            <li><a href="index.html"><img src="img/logo.png" class="menu-emblem" alt="Главная"> Главная</a></li>
+            <li><a href="index.html"><img src="img/logo.png?v=2" class="menu-emblem" alt="Главная"> Главная</a></li>
             <div class="sidebar-title">Клуб</div>
             <li><a href="about.html">О клубе</a></li>
             <li><a href="Веб 2.html" class="active">Команда</a></li>
@@ -86,7 +86,7 @@
                         
                         html += `
                         <article class="card-detail" data-aos="fade-up">
-                            <img src="${player.image}" onerror="this.src='img/logo.png'" alt="${player.name}">
+                            <img src="${player.image}" onerror="this.src='img/logo.png?v=2'" alt="${player.name}">
                             <div class="card-content">
                                 <h2 class="card-name">${player.name} ${captainBadge} <span class="number">№${player.number}</span></h2>
                                 <div class="info-grid">
