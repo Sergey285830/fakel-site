@@ -34,9 +34,9 @@ body::before {
     width: 100vw; height: 100vh;
     background-image: url('img/logo.png?v=2');
     background-position: center center;
-    background-size: 80vmin; /* Огромный, адаптируется под размер экрана */
+    background-size: 80vmin; 
     background-repeat: no-repeat;
-    opacity: 0.05; /* Едва заметный, стильный водяной знак */
+    opacity: 0.05; 
     z-index: -2;
     pointer-events: none;
 }
@@ -77,7 +77,7 @@ header { text-align: center; padding: 60px 20px 30px; position: relative; z-inde
 }
 .subtitle { font-size: 18px; color: var(--brand-light); font-weight: 700; letter-spacing: 8px; margin: 0; }
 
-/* Белоснежная навигация (Меню слева, только полоски) */
+/* Белоснежная навигация */
 .nav { 
     display: flex; justify-content: flex-start; align-items: center; 
     padding: 15px 40px; background: rgba(255,255,255,0.95); 
@@ -108,7 +108,7 @@ header { text-align: center; padding: 60px 20px 30px; position: relative; z-inde
 .section-title, .category-title { font-size: 40px; color: var(--brand-blue); margin: 60px 0 35px; display: flex; align-items: center; gap: 15px; font-weight: 800; text-shadow: 0 4px 10px rgba(0,0,0,0.05); }
 .section-title::before, .category-title::before { content: ''; width: 8px; height: 40px; background: linear-gradient(to bottom, var(--brand-light), var(--fire-main)); display: block; border-radius: 4px;}
 
-/* Чистые белые карточки с градиентами */
+/* Карточки */
 .match-card, .card-detail, .content-card, .partner-card, .cms-news-card, .archive-card { 
     background: var(--card-bg); 
     border-radius: 20px; padding: 40px; margin-bottom: 35px; 
@@ -178,4 +178,37 @@ header { text-align: center; padding: 60px 20px 30px; position: relative; z-inde
 .captain-badge { background: linear-gradient(90deg, var(--fire-main), var(--fire-yellow)); color: #fff; font-size: 14px; font-weight: 800; padding: 6px 16px; border-radius: 8px; letter-spacing: 2px; box-shadow: 0 5px 15px rgba(255, 69, 0, 0.4); }
 .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .info-item { font-size: 17px; color: var(--text-dark); font-weight: 700; }
-.info-item strong { display: block; font-size: 13px; text-
+.info-item strong { display: block; font-size: 13px; text-transform: uppercase; letter-spacing: 3px; color: var(--brand-light); margin-bottom: 5px; }
+.info-full { grid-column: 1 / -1; margin-top: 15px; padding-top: 20px; border-top: 2px dashed rgba(0, 195, 255, 0.2); }
+.info-full strong { color: var(--fire-main); font-size: 15px; }
+
+/* ИДЕАЛЬНО РОВНЫЙ ПОДВАЛ (Footer) */
+footer { 
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    width: 100%; box-sizing: border-box;
+    text-align: center; padding: 50px 20px; color: #fff; 
+    background: var(--brand-blue); font-size: 16px; margin-top: 80px; 
+    position: relative; z-index: 2; border-top: 8px solid var(--brand-light);
+}
+footer span { 
+    color: var(--fire-yellow); font-weight: 800; text-transform: uppercase; 
+    letter-spacing: 4px; font-size: 22px; display: block; margin-bottom: 10px;
+}
+footer p {
+    margin: 0; color: #cbd5e1;
+}
+
+@media (max-width: 768px) { 
+    .match-scoreboard { grid-template-columns: 1fr; gap: 10px; } 
+    .match-events-grid { grid-template-columns: 1fr; gap: 15px; text-align: center; }
+    .team-events.left, .team-events.right { align-items: center; text-align: center; }
+    .event-spacer { display: none; }
+    .standings-table { font-size: 14px; }
+    .standings-table th, .standings-table td { padding: 12px 5px; }
+    .card-detail { flex-direction: column; align-items: center; padding: 25px; gap: 25px; text-align: center; }
+    .card-detail img { width: 100%; max-width: 280px; height: auto; }
+    .card-name { font-size: 32px; justify-content: center; }
+    .info-grid { grid-template-columns: 1fr; gap: 15px; text-align: center; width: 100%; }
+    .huge-logo { width: 260px; }
+    .title { font-size: 46px; }
+}
