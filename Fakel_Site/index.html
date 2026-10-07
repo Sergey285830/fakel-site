@@ -12,10 +12,9 @@
 </head>
 <body>
 
-    <!-- Меню СЛЕВА -->
     <nav class="nav" data-aos="fade-in">
         <div class="menu-btn" onclick="toggleMenu()">
-            <span class="hamburger-icon">☰</span> МЕНЮ
+            <span class="hamburger-icon">☰</span>
         </div>
     </nav>
 
@@ -23,43 +22,37 @@
     <aside class="sidebar" id="sidebar">
         <div class="close-btn" onclick="toggleMenu()">×</div>
         <ul class="sidebar-menu">
-            <li>
-                <a href="index.html" class="active">
-                    <img src="img/logo.png" class="menu-emblem" alt="Главная"> Главная
-                </a>
-            </li>
+            <li><a href="index.html" class="active"><img src="img/logo.png" class="menu-emblem" alt="Главная"> Главная</a></li>
             <div class="sidebar-title">Клуб</div>
             <li><a href="about.html">О клубе</a></li>
             <li><a href="Веб 2.html">Команда</a></li>
             <div class="sidebar-title">Турнир</div>
             <li><a href="Веб 4.html">Матч-центр</a></li>
             <div class="sidebar-title">Медиа и Партнеры</div>
-            <li><a href="#">Трансляции</a></li>
-            <li><a href="#">Медиа</a></li>
+            <!-- ССЫЛКИ НА ВК -->
+            <li><a href="https://vk.ru/footballclubfakel161" target="_blank">Трансляции</a></li>
+            <li><a href="https://vk.ru/albums-227517599" target="_blank">Медиа</a></li>
             <li><a href="Веб 5.html">Партнерам</a></li>
         </ul>
     </aside>
 
     <header id="top" data-aos="zoom-in">
-        <!-- ОГРОМНАЯ ЭМБЛЕМА -->
         <img src="img/logo.png" alt="Логотип ЛФК Факел" class="huge-logo">
         <h1 class="title">ЛФК <span>«ФАКЕЛ»</span></h1>
         <p class="subtitle">ОФИЦИАЛЬНЫЙ САЙТ</p>
     </header>
 
     <div class="container">
-        <!-- Блок вывода ошибок ВК (если ВК заблокирует, мы это увидим) -->
-        <div id="vk-error" style="display:none; background: rgba(255, 59, 0, 0.1); color: #ff3b00; padding: 20px; border-radius: 12px; margin-bottom: 30px; font-weight: bold; border: 2px solid #ff3b00;"></div>
+        <div id="vk-error" style="display:none; background: #ffebee; color: #c62828; padding: 20px; border-radius: 12px; margin-bottom: 30px; font-weight: bold; border: 2px solid #ef5350;"></div>
         
         <div class="news-feed-section">
             <h2 class="section-title" data-aos="fade-right" style="justify-content: center; margin-bottom: 50px;">СВЕЖИЕ НОВОСТИ</h2>
             <div id="unified-feed">
-                <p style="text-align: center; color: var(--brand-light); font-weight: 800; font-size: 20px;">ЗАГРУЗКА ИНФОРМАЦИИ...</p>
+                <p style="text-align: center; color: var(--brand-blue); font-weight: 800; font-size: 20px;">ЗАГРУЗКА ИНФОРМАЦИИ...</p>
             </div>
         </div>
     </div>
 
-    <!-- Горизонтальная лента для старых постов -->
     <div id="archive-section" style="display: none; max-width: 1050px; margin: 0 auto; padding: 0 10px;">
         <h2 class="archive-title">АРХИВ ЗАПИСЕЙ</h2>
         <div class="archive-slider" id="archive-feed"></div>
@@ -81,7 +74,6 @@
 
         let allPosts = [];
         const VK_GROUP_ID = '-227517599'; 
-        // Твой ключ интегрирован!
         const VK_TOKEN = '091ee42a091ee42a091ee42a0d0a5ad5f10091e091ee42a63a19f9ea72afca662d8c301'; 
 
         function fetchCMS() {
@@ -155,7 +147,7 @@
             topPosts.forEach(post => {
                 const imgHtml = post.image ? `<img src="${post.image}" alt="">` : '';
                 const titleStyle = post.type === 'vk' ? `style="color: var(--brand-light);"` : ``;
-                const vkBtn = post.type === 'vk' ? `<br><a href="${post.link}" target="_blank" class="vk-link">Перейти к записи</a>` : '';
+                const vkBtn = post.type === 'vk' ? `<br><a href="${post.link}" target="_blank" class="vk-link">Подробнее в ВК</a>` : '';
                 const cleanBody = post.body.replace(/<[^>]*>?/gm, '');
 
                 mainContainer.innerHTML += `
@@ -172,7 +164,7 @@
                 document.getElementById('archive-section').style.display = 'block';
                 olderPosts.forEach(post => {
                     const imgHtml = post.image ? `<img src="${post.image}" alt="">` : '';
-                    const titleStyle = post.type === 'vk' ? `style="color: var(--brand-light); font-size: 20px;"` : ``;
+                    const titleStyle = post.type === 'vk' ? `style="color: var(--brand-blue); font-size: 20px;"` : ``;
                     const vkBtn = post.type === 'vk' ? `<a href="${post.link}" target="_blank" class="vk-link" style="margin-top:auto; padding: 10px 20px;">В ВК</a>` : '';
                     const cleanBody = post.body.replace(/<[^>]*>?/gm, '');
                     
