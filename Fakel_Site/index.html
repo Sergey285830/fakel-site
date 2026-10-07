@@ -92,7 +92,7 @@
                 window.processVKPosts = function(response) {
                     if (response && response.error) {
                         document.getElementById('vk-error').style.display = 'block';
-                        document.getElementById('vk-error').innerHTML = `Ошибка ВК: ${response.error.error_msg}`;
+                        document.getElementById('vk-error').innerHTML = `Ошибка доступа ВКонтакте: ${response.error.error_msg}`;
                         resolve(); return;
                     }
                     if(response && response.response && response.response.items) {
