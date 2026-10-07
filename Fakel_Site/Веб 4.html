@@ -95,35 +95,64 @@
             document.body.style.overflow = document.body.style.overflow === 'hidden' ? 'auto' : 'hidden';
         }
 
-        fetch('data/standings.json').then(res => res.json()).then(data => {
-            const table = document.getElementById('standings-table');
-            data.teams.sort((a, b) => a.position - b.position);
-            data.teams.forEach(team => {
-                const isFakel = team.name === 'Факел' ? 'class="fakel-row"' : '';
-                table.innerHTML += `<tr ${isFakel}>
-                    <td>${team.position}</td><td class="team-cell">${team.name}</td>
-                    <td>${team.games}</td><td>${team.wins}</td><td>${team.draws}</td>
-                    <td>${team.losses}</td><td>${team.goals_diff}</td><td><strong>${team.points}</strong></td>
-                </tr>`;
-            });
+        // Вшитые данные для мгновенного обновления
+        const matchData = {
+            standings: [
+                { "position": 1, "name": "FC Soroka", "games": 5, "wins": 3, "draws": 1, "losses": 1, "goals_diff": "12", "points": 10 },
+                { "position": 2, "name": "ZaDrots", "games": 5, "wins": 3, "draws": 1, "losses": 1, "goals_diff": "7", "points": 10 },
+                { "position": 3, "name": "АКД", "games": 5, "wins": 3, "draws": 0, "losses": 2, "goals_diff": "-5", "points": 9 },
+                { "position": 4, "name": "The Smash", "games": 5, "wins": 3, "draws": 0, "losses": 2, "goals_diff": "8", "points": 9 },
+                { "position": 5, "name": "ФК Батайск", "games": 5, "wins": 2, "draws": 1, "losses": 2, "goals_diff": "-6", "points": 7 },
+                { "position": 6, "name": "Факел", "games": 5, "wins": 2, "draws": 0, "losses": 3, "goals_diff": "-2", "points": 6 },
+                { "position": 7, "name": "ФК Рассвет", "games": 5, "wins": 1, "draws": 1, "losses": 3, "goals_diff": "-7", "points": 4 },
+                { "position": 8, "name": "Виртуоз", "games": 5, "wins": 1, "draws": 0, "losses": 4, "goals_diff": "-7", "points": 3 }
+            ],
+            latest: {
+                "match_info": "5-й тур | Высшая лига | 03.10.2026",
+                "team1": "Виртуоз",
+                "score": "5 : 7",
+                "team2": "Факел",
+                "events1": [{ "event": "Игроки Виртуоза (5 голов)" }],
+                "events2": [
+                    { "event": "С. Гончаренко (⚽⚽⚽)" },
+                    { "event": "В. Тимонин (⚽⚽)" },
+                    { "event": "Н. Закатин (⚽)" },
+                    { "event": "В. Иутинский (⚽)" }
+                ]
+            },
+            upcoming: [
+                { "date": "10 октября (6 тур)", "title": "Факел — ФК Рассвет" },
+                { "date": "10 октября (6 тур)", "title": "FC Soroka — The Smash" },
+                { "date": "10 октября (6 тур)", "title": "Виртуоз — ZaDrots" },
+                { "date": "10 октября (6 тур)", "title": "АКД — ФК Батайск" }
+            ]
+        };
+
+        // Отрисовка таблицы
+        const table = document.getElementById('standings-table');
+        matchData.standings.forEach(team => {
+            const isFakel = team.name === 'Факел' ? 'class="fakel-row"' : '';
+            table.innerHTML += `<tr ${isFakel}>
+                <td>${team.position}</td><td class="team-cell">${team.name}</td>
+                <td>${team.games}</td><td>${team.wins}</td><td>${team.draws}</td>
+                <td>${team.losses}</td><td>${team.goals_diff}</td><td><strong>${team.points}</strong></td>
+            </tr>`;
         });
 
-        fetch('data/latest_result.json').then(res => res.json()).then(data => {
-            document.getElementById('latest-header').innerHTML = `<span>${data.match_info}</span>`;
-            document.getElementById('team1-name').textContent = data.team1;
-            document.getElementById('match-score').textContent = data.score;
-            document.getElementById('team2-name').textContent = data.team2;
-            const events1 = document.getElementById('team1-events');
-            if(data.events1) data.events1.forEach(e => events1.innerHTML += `<div class="event">${e.event}</div>`);
-            const events2 = document.getElementById('team2-events');
-            if(data.events2) data.events2.forEach(e => events2.innerHTML += `<div class="event">${e.event}</div>`);
-        });
+        // Отрисовка последнего матча
+        document.getElementById('latest-header').innerHTML = `<span>${matchData.latest.match_info}</span>`;
+        document.getElementById('team1-name').textContent = matchData.latest.team1;
+        document.getElementById('match-score').textContent = matchData.latest.score;
+        document.getElementById('team2-name').textContent = matchData.latest.team2;
+        const events1 = document.getElementById('team1-events');
+        matchData.latest.events1.forEach(e => events1.innerHTML += `<div class="event">${e.event}</div>`);
+        const events2 = document.getElementById('team2-events');
+        matchData.latest.events2.forEach(e => events2.innerHTML += `<div class="event">${e.event}</div>`);
 
-        fetch('data/upcoming.json').then(res => res.json()).then(data => {
-            const table = document.getElementById('upcoming-table');
-            data.matches.forEach(match => {
-                table.innerHTML += `<tr><td style="text-align: left;">${match.date}</td><td style="text-align: left; font-weight: 800; color: var(--brand-blue);">${match.title}</td></tr>`;
-            });
+        // Отрисовка будущих матчей
+        const upTable = document.getElementById('upcoming-table');
+        matchData.upcoming.forEach(match => {
+            upTable.innerHTML += `<tr><td style="text-align: left;">${match.date}</td><td style="text-align: left; font-weight: 800; color: var(--brand-blue);">${match.title}</td></tr>`;
         });
     </script>
 </body>
