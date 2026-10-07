@@ -5,16 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ЛФК «Факел» | Официальный сайт</title>
     <link rel="icon" type="image/png" href="img/logo.png">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Oswald:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="https://vk.com/js/api/openapi.js?169" type="text/javascript"></script>
 </head>
 <body>
 
+    <!-- Меню СЛЕВА -->
     <nav class="nav" data-aos="fade-in">
         <div class="menu-btn" onclick="toggleMenu()">
-            МЕНЮ <span class="hamburger-icon">☰</span>
+            <span class="hamburger-icon">☰</span> МЕНЮ
         </div>
     </nav>
 
@@ -40,30 +41,32 @@
     </aside>
 
     <header id="top" data-aos="zoom-in">
+        <!-- ОГРОМНАЯ ЭМБЛЕМА -->
         <img src="img/logo.png" alt="Логотип ЛФК Факел" class="huge-logo">
-        <h1 class="title">ЛФК <span>«Факел»</span></h1>
+        <h1 class="title">ЛФК <span>«ФАКЕЛ»</span></h1>
         <p class="subtitle">ОФИЦИАЛЬНЫЙ САЙТ</p>
     </header>
 
     <div class="container">
+        <!-- Блок вывода ошибок ВК (если ВК заблокирует, мы это увидим) -->
+        <div id="vk-error" style="display:none; background: rgba(255, 59, 0, 0.1); color: #ff3b00; padding: 20px; border-radius: 12px; margin-bottom: 30px; font-weight: bold; border: 2px solid #ff3b00;"></div>
+        
         <div class="news-feed-section">
-            <h2 class="section-title" data-aos="fade-right" style="justify-content: center; margin-bottom: 40px;">СВЕЖИЕ НОВОСТИ</h2>
+            <h2 class="section-title" data-aos="fade-right" style="justify-content: center; margin-bottom: 50px;">СВЕЖИЕ НОВОСТИ</h2>
             <div id="unified-feed">
-                <p style="text-align: center; color: var(--brand-light-blue); font-weight: bold;">Загрузка новостей...</p>
+                <p style="text-align: center; color: var(--brand-light); font-weight: 800; font-size: 20px;">ЗАГРУЗКА ИНФОРМАЦИИ...</p>
             </div>
         </div>
     </div>
 
-    <!-- Раздел для старых постов -->
-    <div id="archive-section" style="display: none; max-width: 1000px; margin: 0 auto; padding: 0 10px;">
-        <h2 class="archive-title">ПРЕДЫДУЩИЕ ЗАПИСИ</h2>
-        <div class="archive-slider" id="archive-feed">
-            <!-- Карусель -->
-        </div>
+    <!-- Горизонтальная лента для старых постов -->
+    <div id="archive-section" style="display: none; max-width: 1050px; margin: 0 auto; padding: 0 10px;">
+        <h2 class="archive-title">АРХИВ ЗАПИСЕЙ</h2>
+        <div class="archive-slider" id="archive-feed"></div>
     </div>
 
     <footer>
-        <span>Время зажечь Факел!</span>
+        <span>ВРЕМЯ ЗАЖЕЧЬ ФАКЕЛ!</span>
         © 2026, ЛФК «Факел» | Ростов-на-Дону
     </footer>
 
@@ -78,7 +81,8 @@
 
         let allPosts = [];
         const VK_GROUP_ID = '-227517599'; 
-        const VK_TOKEN = 'ТВОЙ_СЕРВИСНЫЙ_КЛЮЧ_ВК'; // <---- ВСТАВЬ СВОЙ КЛЮЧ СЮДА
+        // Твой ключ интегрирован!
+        const VK_TOKEN = '091ee42a091ee42a091ee42a0d0a5ad5f10091e091ee42a63a19f9ea72afca662d8c301'; 
 
         function fetchCMS() {
             return fetch('data/news.json').then(res => res.json()).then(data => {
@@ -95,6 +99,11 @@
         function fetchVK() {
             return new Promise((resolve) => {
                 window.processVKPosts = function(response) {
+                    if (response && response.error) {
+                        document.getElementById('vk-error').style.display = 'block';
+                        document.getElementById('vk-error').innerHTML = `Ошибка доступа ВКонтакте: ${response.error.error_msg}`;
+                        resolve(); return;
+                    }
                     if(response && response.response && response.response.items) {
                         const vkPosts = response.response.items.map(p => {
                             let imgUrl = '';
@@ -103,7 +112,7 @@
                                 if(photoAtt) { imgUrl = photoAtt.photo.sizes[photoAtt.photo.sizes.length - 1].url; }
                             }
                             return {
-                                type: 'vk', title: 'ВКонтакте', body: p.text, image: imgUrl,
+                                type: 'vk', title: 'ОФИЦИАЛЬНОЕ СООБЩЕСТВО', body: p.text, image: imgUrl,
                                 dateStr: new Date(p.date * 1000).toLocaleDateString('ru-RU'),
                                 timestamp: p.date * 1000, link: `https://vk.com/wall${VK_GROUP_ID}_${p.id}`
                             };
@@ -145,8 +154,8 @@
             
             topPosts.forEach(post => {
                 const imgHtml = post.image ? `<img src="${post.image}" alt="">` : '';
-                const titleStyle = post.type === 'vk' ? `style="color: var(--brand-light-blue);"` : ``;
-                const vkBtn = post.type === 'vk' ? `<br><a href="${post.link}" target="_blank" class="vk-link">Открыть в ВК</a>` : '';
+                const titleStyle = post.type === 'vk' ? `style="color: var(--brand-light);"` : ``;
+                const vkBtn = post.type === 'vk' ? `<br><a href="${post.link}" target="_blank" class="vk-link">Перейти к записи</a>` : '';
                 const cleanBody = post.body.replace(/<[^>]*>?/gm, '');
 
                 mainContainer.innerHTML += `
@@ -163,8 +172,8 @@
                 document.getElementById('archive-section').style.display = 'block';
                 olderPosts.forEach(post => {
                     const imgHtml = post.image ? `<img src="${post.image}" alt="">` : '';
-                    const titleStyle = post.type === 'vk' ? `style="color: var(--brand-light-blue); font-size: 18px;"` : ``;
-                    const vkBtn = post.type === 'vk' ? `<a href="${post.link}" target="_blank" class="vk-link" style="margin-top:auto; padding: 6px 15px;">В ВК</a>` : '';
+                    const titleStyle = post.type === 'vk' ? `style="color: var(--brand-light); font-size: 20px;"` : ``;
+                    const vkBtn = post.type === 'vk' ? `<a href="${post.link}" target="_blank" class="vk-link" style="margin-top:auto; padding: 10px 20px;">В ВК</a>` : '';
                     const cleanBody = post.body.replace(/<[^>]*>?/gm, '');
                     
                     archiveContainer.innerHTML += `
